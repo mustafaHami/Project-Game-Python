@@ -58,4 +58,5 @@ class Player(pygame.sprite.Sprite):
 
 
     def jumpy(self,saut):
-        self.rect.y += saut
+        if saut != -20: 
+            self.rect.y -= saut
