@@ -1,0 +1,10 @@
+-C'est l'histoire d'un arbre qui se balade dans la foret il avance comme mario en 2D
+Cet arbre il avance il saute et il a une barre de vie qui se réduit petit a petit
+sur sa route il ya  des plateformes des trous etc
+Il y a également des fruits qui lui donne de la vie et aussi des voitures et des tronçonneuses qui lui en enlève
+il y a également des fruits empoisonnés
+lorsque l'arbre a perdu trop de points de vie ou qu'il a manger un fruit empoissoné il s'endors.
+Le but est d'avancer le plus possible dans la forêt.
+
+Lorsque l'arbre s'endors il fait un cauchemard ou il doit affronter des tronçonneuses qui tombent du ciel. comme un jeu de fusée
+qui attaque des météorites. si il perd cet affrontement il perd la partie et meurt si il le gagne il se réveille.
