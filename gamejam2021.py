@@ -1,6 +1,7 @@
 import pygame, sys
+from pygame.locals import *
 from Game import Game
-
+import time
 # Initializing
 pygame.init()
 
@@ -70,6 +71,8 @@ all_sprites.add(P1)
 # Adding a new User event
 INC_SPEED = pygame.USEREVENT + 1
 pygame.time.set_timer(INC_SPEED, 1000)
+saut = 20
+jump = False
 
 # Game Loop
 while True:
@@ -81,6 +84,22 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and saut == 20:
+                jump = True
+                print("t'as appuyer")
+
+    if jump == True and saut >= -20:
+        saut -= 1
+        P1.jumpy(saut)
+
+    if saut == -21:
+        saut = 20
+        jump = False
+
+
+    print(saut)
+
 
     back_ground.update()
     back_ground.render()
@@ -108,6 +127,7 @@ while True:
         time.sleep(1.5)
         pygame.quit()
         sys.exit()
+
 
     pygame.display.update()
     FramePerSec.tick(FPS)

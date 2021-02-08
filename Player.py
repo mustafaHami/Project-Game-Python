@@ -1,6 +1,6 @@
 import pygame, sys
 from pygame.locals import *
-
+import time
 # Setting up FPS
 FPS = 60
 FramePerSec = pygame.time.Clock()
@@ -55,3 +55,7 @@ class Player(pygame.sprite.Sprite):
         if self.rect.right < SCREEN_WIDTH:
             if pressed_keys[K_RIGHT]:
                 self.rect.move_ip(5, 0)
+
+
+    def jumpy(self,saut):
+        self.rect.y += saut
