@@ -33,7 +33,8 @@ pygame.display.set_caption("Game")
 
 class Background():
     def __init__(self):
-        self.bgimage = pygame.image.load('images/day_forest.png')
+        self.bgimage = pygame.image.load('images/forest.jpg')
+        self.bgimage = pygame.transform.scale(self.bgimage, (1024, 768))
         self.rectBGimg = self.bgimage.get_rect()
 
         self.bgY1 = 0
