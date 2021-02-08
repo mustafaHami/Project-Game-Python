@@ -1,6 +1,7 @@
-import pygame, sys
+import pygame
 from Player import Player
-class Game: 
+
+class Game:
 
     def __init__(self):
         # generate a player 

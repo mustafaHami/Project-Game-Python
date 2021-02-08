@@ -1,6 +1,29 @@
 import pygame, sys
 from pygame.locals import *
 
+# Setting up FPS
+FPS = 60
+FramePerSec = pygame.time.Clock()
+
+# Creating colors
+BLUE = (0, 0, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+
+# Other Variables for use in the program
+SCREEN_WIDTH = 400
+SCREEN_HEIGHT = 600
+SPEED = 5
+SCORE = 0
+
+# Create a white screen
+DISPLAYSURF = pygame.display.set_mode((400, 600))
+DISPLAYSURF.fill(WHITE)
+pygame.display.set_caption("Game")
+
+
 class Player(pygame.sprite.Sprite):
 
     def __init__(self):
@@ -18,28 +41,17 @@ class Player(pygame.sprite.Sprite):
     def move_right(self):
         self.rect.x += self.velocity
 
-    def jump(self):    
-        x,y=10,300
-        movex,movey=0,0
-        if event.type==KEYDOWN:
-            if event.key==K_LEFT:
-                movex = -0.2
-            elif event.key==K_RIGHT:
-                movex=+0.2
-            elif event.key==K_DOWN:
-                movey=+0.2
-            elif event.key==K_SPACE:
-                movey=-0.4
-                movey=+0.4
-        if event.type==KEYUP:
-                if event.key==K_LEFT:
-                    movex = 0
-                elif event.key==K_RIGHT:
-                    movex=0
-                elif event.key==K_DOWN:
-                    movey=0
-                elif event.key==K_SPACE:
-                    movey=0
-        x+=movex
-        y+=movey
-        screen.blit(player,(x,y)) 
+
+    def move(self):
+        pressed_keys = pygame.key.get_pressed()
+        # if pressed_keys[K_UP]:
+        # self.rect.move_ip(0, -5)
+        # if pressed_keys[K_DOWN]:
+        # self.rect.move_ip(0,5)
+
+        if self.rect.left > 0:
+            if pressed_keys[K_LEFT]:
+                self.rect.move_ip(-5, 0)
+        if self.rect.right < SCREEN_WIDTH:
+            if pressed_keys[K_RIGHT]:
+                self.rect.move_ip(5, 0)
