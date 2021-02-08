@@ -56,8 +56,8 @@ class Background():
                
 
     def update(self):
-        self.bgX1 -= self.moving_speed
-        self.bgX2 -= self.moving_speed
+        self.bgX1 += self.moving_speed
+        self.bgX2 += self.moving_speed
         if self.bgX1 <= -self.rectBGimg.width:
             self.bgX1 = self.rectBGimg.width
         if self.bgX2 <= -self.rectBGimg.width:
