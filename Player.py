@@ -1,6 +1,5 @@
-import pygame, sys
 from pygame.locals import *
-
+import pygame
 # Setting up FPS
 FPS = 60
 FramePerSec = pygame.time.Clock()
@@ -35,7 +34,7 @@ class Player(pygame.sprite.Sprite):
         self.jump = 5
         self.image = pygame.image.load('images/tree_player.png')
         self.rect = self.image.get_rect()
-        self.rect.x = 50
+        self.rect.x = 70
         self.rect.y = 550
 
     def move_right(self):
