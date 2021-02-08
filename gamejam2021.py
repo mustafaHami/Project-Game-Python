@@ -1,6 +1,6 @@
 import pygame, sys
 from pygame.locals import *
-
+from Game import Game
 pygame.init()
 
 FPS = 30
@@ -15,14 +15,14 @@ pygame.display.set_caption("ForestCape")
 
 background = pygame.image.load('images/day_forest.png')
 
-player = Player()
+game = Game()
 
 while True:
 
     #background applying
     DISPLAYSURF.blit(background, (0,0))
     #player applying
-    DISPLAYSURF.blit(player.image, (0,0))
+    DISPLAYSURF.blit(game.player.image, game.player.rect)
 
     pygame.display.update()
     for event in pygame.event.get():

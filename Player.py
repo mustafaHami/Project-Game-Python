@@ -1,3 +1,6 @@
+import pygame, sys
+from pygame.locals import *
+
 class Player(pygame.sprite.Sprite):
 
     def __init__(self):
@@ -6,5 +9,7 @@ class Player(pygame.sprite.Sprite):
         self.max_health = 100
         self.attack = 10
         self.velocity = 5
-        self.image = pygame.image.load('')
+        self.image = pygame.image.load('images/tree_player.png')
         self.rect = self.image.get_rect()
+        self.rect.x = 400
+        self.rect.y = 200
