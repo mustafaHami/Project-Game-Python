@@ -12,7 +12,7 @@ BLACK = (0, 0, 0)
 DISPLAYSURF = pygame.display.set_mode((1024,768))
 DISPLAYSURF.fill(WHITE)
 pygame.display.set_caption("ForestCape")
-background = pygame.image.load('images/game.png')
+background = pygame.image.load('images/day_forest.png')
 
 #pygame.draw.line(DISPLAYSURF, BLACK, (150,130), (130,170))
 #pygame.draw.line(DISPLAYSURF, BLACK, (150,130), (170,170))
