@@ -89,23 +89,14 @@ while True:
             if event.key == pygame.K_SPACE or event.key == pygame.K_UP and saut == 20:
                 jump = True
                 print("t'as appuyer")
-                
 
-
-
-    
     if jump == True and saut >= -20:
         saut -= 1
         P1.jumpy(saut)
 
-        if event.key == pygame.K_SPACE or event.key == pygame.K_UP and saut == 20:
-        P1.jumpy(saut)
-
-
     if saut == -20:
         saut = 20
         jump = False
-              
 
 
     print(saut)
