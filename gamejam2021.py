@@ -44,20 +44,11 @@ class Background():
         self.bgY2 = 0
         self.bgX2 = self.rectBGimg.width
 
-        self.moving_speed = 5
-        
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    self.moving_speed = 9
-                if event.key == pygame.K_LEFT:
-                    self.moving_speed = 3
-                
-               
+        self.moving_speed = 5           
 
     def update(self):
-        self.bgX1 += self.moving_speed
-        self.bgX2 += self.moving_speed
+        self.bgX1 -= self.moving_speed
+        self.bgX2 -= self.moving_speed
         if self.bgX1 <= -self.rectBGimg.width:
             self.bgX1 = self.rectBGimg.width
         if self.bgX2 <= -self.rectBGimg.width:
