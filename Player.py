@@ -1,13 +1,8 @@
 from pygame.locals import *
 import time
 import pygame
-<<<<<<< HEAD
 
 
-
-
-=======
->>>>>>> 293d8569f15e4a46cca40bc40b5c6be6b7ed0f6a
 
 class Player(pygame.sprite.Sprite):
 

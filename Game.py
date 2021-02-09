@@ -1,15 +1,8 @@
 import pygame
 from Player import Player
-<<<<<<< HEAD
-
-
 from Fruits import Fruits
 
 
-=======
-from Fruits import Fruits
-
->>>>>>> 293d8569f15e4a46cca40bc40b5c6be6b7ed0f6a
 class Game:
 
     def __init__(self):
