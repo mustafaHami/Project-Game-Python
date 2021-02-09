@@ -38,7 +38,6 @@ class Fruits(pygame.sprite.Sprite):
                     self.image = pygame.image.load("images/"+self.image_name+".png")
                     self.rect.x = 1300 + random.randint(0,100)
             else:
-                
                 #if the player does collide a fruit:
                 #the velocity is increased little by little
                 self.velocity += 0.2
@@ -77,8 +76,6 @@ class Fruits(pygame.sprite.Sprite):
                 self.velocity += 0.2
                 if self.velocity > 25:
                     self.velocity = 25
-                self.game.score = self.game.score - 10
-                self.score = self.game.score - 10
                 self.image_name = random.choice(eat2)
                 self.game.player.damage(self.damage)
                 self.rect.x = 1300 + random.randint(0,100)
