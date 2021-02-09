@@ -37,6 +37,7 @@ class Fruits(pygame.sprite.Sprite):
                 self.image = pygame.image.load("images/"+self.image_name+".png")
         else:
             self.velocity += 0.2
+ 
             if self.velocity == 7:
                 self.velocity = 7
 
@@ -51,7 +52,8 @@ class Fruits(pygame.sprite.Sprite):
                 self.rect.y = 550
                 self.image = pygame.image.load("images/"+random.choice(eat)+".png")
             position = random.randint(1,2)
-            self.score = int(self.score + 10 + self.velocity)
+            self.score = self.score + 5
+   
    
 
             

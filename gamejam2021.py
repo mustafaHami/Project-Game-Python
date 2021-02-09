@@ -17,10 +17,8 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
 # Other Variables for use in the program
-SCREEN_WIDTH = 1024
-SCREEN_HEIGHT = 768
 SPEED = 5
-SCORE = 0
+
 
 # Setting up fonts that will be used
 font = pygame.font.SysFont("Verdana", 60)
@@ -78,7 +76,7 @@ INC_SPEED = pygame.USEREVENT + 1
 pygame.time.set_timer(INC_SPEED, 1000)
 saut = 20
 jump = False
-#scores = font_small.render(str(SCORE), True, BLACK)
+
 
 # Game Loop
 while True:
@@ -110,12 +108,9 @@ while True:
     back_ground.render()
 
     # DISPLAYSURF.blit(background, (0,0))
-    scores = font_small.render(str(SCORE), True, BLACK)
-
-    DISPLAYSURF.blit(scores, (10, 10))
 
     # Moves and Re-draws all Sprites
-    DISPLAYSURF.blit(scores, (10, 10))
+
     # Add fruits
     game.all_fruits.draw(DISPLAYSURF)
     # Moves and Re-draws
@@ -130,9 +125,11 @@ while True:
 
     for fruits in game.all_fruits:
         fruits.forward()
-        SCORE = fruits.getScore()
-        #DISPLAYSURF.blit(scores, (10, 10))
-        scores = font_small.render(str(SCORE), True, BLACK)
+        score = fruits.getScore()
+        Police = pygame.font.Font("FONTS/bold_game_font_7.ttf", 40)
+        Rendu = Police.render("Score : " + str(score), 1, (255,255,255))
+       
+        DISPLAYSURF.blit (Rendu, (10, 40))
         pygame.display.update()
 
     # To be run if collision occurs between Player and Enemy
