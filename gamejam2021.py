@@ -128,11 +128,7 @@ while True:
 
     for fruits in game.all_fruits:
         fruits.forward()
-        score = 10
-        Police = pygame.font.Font("FONTS/bold_game_font_7.ttf", 40)
-        Rendu = Police.render("Score : " + str(score), 1, (255,255,255))
-       
-        DISPLAYSURF.blit (Rendu, (10, 40))
+        game.update(DISPLAYSURF)
         pygame.display.update()
 
     # To be run if collision occurs between Player and Enemy
