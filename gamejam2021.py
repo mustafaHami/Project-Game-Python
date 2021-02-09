@@ -22,7 +22,7 @@ SCREEN_HEIGHT = 768
 SPEED = 5
 SCORE = 0
 
-# Setting up Fonts
+# Setting up fonts that will be used
 font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = font.render("Game Over", True, BLACK)
@@ -30,11 +30,11 @@ game_over = font.render("Game Over", True, BLACK)
 # Create a white screen
 DISPLAYSURF = pygame.display.set_mode((1024, 768))
 DISPLAYSURF.fill(WHITE)
-pygame.display.set_caption("Game")
+pygame.display.set_caption("Forescape")
 
 class Background():
     def __init__(self):
-        self.bgimage = pygame.image.load('images/forest.jpg')
+        self.bgimage = pygame.image.load('images/background.jpg')
         self.bgimage = pygame.transform.scale(self.bgimage, (1024, 768))
         self.rectBGimg = self.bgimage.get_rect()
 
@@ -64,6 +64,8 @@ game = Game()
 P1 = game.player
 back_ground = Background()
 
+
+
 # Creating Sprites Groups
 enemies = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
@@ -78,7 +80,7 @@ jump = False
 # Game Loop
 while True:
 
-    # Cycles through all occurring events
+    # Every game events
     for event in pygame.event.get():
         if event.type == INC_SPEED:
             SPEED += 0.5
@@ -105,11 +107,15 @@ while True:
     # DISPLAYSURF.blit(background, (0,0))
     scores = font_small.render(str(SCORE), True, BLACK)
     DISPLAYSURF.blit(scores, (10, 10))
-
-    # Moves and Re-draws all Sprites
+    # Add fruits
+    game.all_fruits.draw(DISPLAYSURF)
+    # Moves and Re-draws
     for entity in all_sprites:
         DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
+
+    for fruits in game.all_fruits:
+        fruits.forward()
 
     # To be run if collision occurs between Player and Enemy
     if pygame.sprite.spritecollideany(P1, enemies):
