@@ -88,6 +88,7 @@ while True:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE or event.key == pygame.K_UP and saut == 20:
                 jump = True
+                print("t'as appuyer")
 
     if jump == True and saut >= -20:
         saut -= 1
@@ -96,6 +97,9 @@ while True:
     if saut == -19:
         saut = 20
         jump = False
+
+
+    print(saut)
 
 
     back_ground.update()

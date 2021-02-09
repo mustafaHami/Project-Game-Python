@@ -51,10 +51,10 @@ class Player(pygame.sprite.Sprite):
 
         if self.rect.left > 0:
             if pressed_keys[K_LEFT]:
-                self.rect.move_ip(-5, 0)
-        if self.rect.right < 1024:
+                self.rect.move_ip(-10, 0)
+        if self.rect.right < 1015:
             if pressed_keys[K_RIGHT]:
-                self.rect.move_ip(5, 0)
+                self.rect.move_ip(10, 0)
 
 
     def jumpy(self,saut):
