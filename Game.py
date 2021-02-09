@@ -1,7 +1,6 @@
 import pygame
 from Player import Player
 
-from Chainsaw import Chainsaw
 
 from Fruits import Fruits
 
