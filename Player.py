@@ -1,27 +1,6 @@
 from pygame.locals import *
 import time
 import pygame
-# Setting up FPS
-FPS = 60
-FramePerSec = pygame.time.Clock()
-
-# Creating colors
-BLUE = (0, 0, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-
-# Other Variables for use in the program
-SCREEN_WIDTH = 400
-SCREEN_HEIGHT = 600
-SPEED = 5
-SCORE = 0
-
-# Create a white screen
-DISPLAYSURF = pygame.display.set_mode((400, 600))
-DISPLAYSURF.fill(WHITE)
-pygame.display.set_caption("Game")
 
 
 class Player(pygame.sprite.Sprite):
@@ -37,6 +16,12 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 70
         self.rect.y = 550
+
+    def update_health_bar(self, surface):
+
+        pygame.draw.rect(surface,(30,30,30),[100,100,self.max_health,5])
+        pygame.draw.rect(surface,(134,254,0),[100,100,self.health,5])
+        
 
     def move_right(self):
         self.rect.x += self.velocity
