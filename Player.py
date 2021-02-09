@@ -22,7 +22,6 @@ class Player(pygame.sprite.Sprite):
 
         
         pygame.draw.rect(surface,(30,30,30),[95, 45, self.max_health * 5 + 10, 30])
-
         pygame.draw.rect(surface,((100 - self.health) * 255 / 100, self.health* 255 / 100 ,0),[100,50,self.health * 5,20])
 
 
