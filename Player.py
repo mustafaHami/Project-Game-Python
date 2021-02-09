@@ -24,9 +24,9 @@ class Player(pygame.sprite.Sprite):
     def bonus(self, amount):
         self.health += amount
 
-    def update_health_bar(self, surface):
-        pygame.draw.rect(surface,(30,30,30),[95, 45, self.max_health * 5 + 10, 30])
-        pygame.draw.rect(surface,((100 - self.health) * 255 / 100, self.health* 255 / 100 ,0),[100,50,self.health * 5,20])
+    def update_health_bar(self, surface):    
+        pygame.draw.rect(surface,(30,30,30),[5, 5, self.max_health * 5 + 10, 30])
+        pygame.draw.rect(surface,((100 - self.health) * 255 / 100, self.health* 255 / 100 ,0),[10,10,self.health * 5,20])
 
 
     def move_right(self):
@@ -44,10 +44,10 @@ class Player(pygame.sprite.Sprite):
         # self.rect.move_ip(0,5)
         if self.rect.left > 0:
             if pressed_keys[K_LEFT]:
-                self.rect.move_ip(-10, 0)
+                self.rect.move_ip(-9, 0)
         if self.rect.right < 1024:
             if pressed_keys[K_RIGHT]:
-                self.rect.move_ip(5, 0)
+                self.rect.move_ip(9, 0)
 
 
 
