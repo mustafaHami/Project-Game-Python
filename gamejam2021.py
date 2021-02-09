@@ -130,7 +130,7 @@ while True:
 
     for fruits in game.all_fruits:
         fruits.forward()
-        SCORE = fruits.getScore()
+        #SCORE = game.getScore()
         #DISPLAYSURF.blit(scores, (10, 10))
         scores = font_small.render(str(SCORE), True, BLACK)
         pygame.display.update()

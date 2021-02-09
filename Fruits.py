@@ -1,15 +1,17 @@
 import pygame
 import random
 
-eat = ["strawberry", "kiwi","orange","banana","coconut","grape","green_apple","chainsaw"]
+eat = ["strawberry", "kiwi","orange","banana","coconut","grape","green_apple"]
+eat2 = ["strawberry", "kiwi","orange","banana","coconut","grape","green_apple", "chainsaw"]
 
 class Fruits(pygame.sprite.Sprite):
 
     def __init__(self, game):
         super().__init__()
         self.game = game
-        self.health = 1
-        self.image_name = "default"
+        self.damage = 10
+        self.bonus = 3
+        self.image_name = "kiwi"
         self.image = pygame.image.load("images/"+random.choice(eat)+".png")
         self.rect = self.image.get_rect()
         self.rect.x = 900 + random.randint(0, 700)
@@ -19,40 +21,74 @@ class Fruits(pygame.sprite.Sprite):
 
     def damage(self, amount):
         self.health -= amount
-        if self.health <= 0:
-            self.rect.x = 900
     
     def getVelocity(self):
         return self.velocity
-
-    def getScore(self):
+    
+    def myScore(self):
         return self.score
     
     def forward(self):
-        if not self.game.check_collision(self, self.game.all_players):
-            self.rect.x -= self.velocity
-            if self.rect.x <= -200:
-                self.rect.x = 1300 + random.randint(0,200)
-                self.image_name = random.choice(eat)
-                self.image = pygame.image.load("images/"+self.image_name+".png")
-        else:
-            self.velocity += 0.2
-            if self.velocity == 7:
-                self.velocity = 7
-
-            self.image = pygame.image.load("images/"+random.choice(eat)+".png")
-            self.rect.x = 1300 + random.randint(0,200)
-            position = random.randint(1,2)
-
-            if position == 1:
-                self.rect.y = 400
-                self.image = pygame.image.load("images/"+random.choice(eat)+".png")
+        if self.image_name != "chainsaw":
+            #if the player does not collide a fruit
+            if not self.game.check_collision(self, self.game.all_players):
+                self.rect.x -= self.velocity
+                if self.rect.x <= -200:
+                    self.image_name = random.choice(eat2)
+                    self.image = pygame.image.load("images/"+self.image_name+".png")
+                    self.rect.x = 1300 + random.randint(0,200)
+                    
             else:
-                self.rect.y = 550
-                self.image = pygame.image.load("images/"+random.choice(eat)+".png")
-            position = random.randint(1,2)
-            self.score = int(self.score + 10 + self.velocity)
+                self.score = self.score + 10
+                print(self.score)
+                #if the player does collide a fruit:
+                #the velocity is increased little by little
+                self.velocity += 0.2
+                if self.velocity > 25:
+                    self.velocity = 25
+                self.image_name = random.choice(eat2)
+                if(self.game.player.health <= 97):
+                    self.game.player.bonus(self.bonus)
+                self.rect.x = 1300 + random.randint(0,100)
+                self.image = pygame.image.load("images/"+self.image_name+".png")
+
+                position = random.randint(1,2)
+
+                if position == 1:
+                    self.rect.y = 400
+                    self.image = pygame.image.load("images/"+self.image_name+".png")
+                else:
+                    self.rect.y = 550
+                    self.image = pygame.image.load("images/"+self.image_name+".png")
+                position = random.randint(1,2)
+                
    
 
-            
+
+        elif self.image_name == "chainsaw":
+            #if the player does not collide a fruit
+            if not self.game.check_collision(self, self.game.all_players):
+                self.rect.x -= self.velocity
+                if self.rect.x <= -200:
+                    self.image_name = random.choice(eat2)
+                    self.rect.x = 1300 + random.randint(0,100)
+                    self.image = pygame.image.load("images/"+self.image_name+".png")
+            else:
+                self.velocity += 0.2
+                if self.velocity > 25:
+                    self.velocity = 25
+                self.image_name = random.choice(eat2)
+                self.game.player.damage(self.damage)
+                self.rect.x = 1300 + random.randint(0,100)
+                self.image = pygame.image.load("images/"+self.image_name+".png")
+
+                position = random.randint(1,2)
+
+                if position == 1:
+                    self.rect.y = 400
+                    self.image = pygame.image.load("images/"+self.image_name+".png")
+                else:
+                    self.rect.y = 550
+                    self.image = pygame.image.load("images/"+self.image_name+".png")
+                position = random.randint(1,2)
 
