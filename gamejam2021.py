@@ -32,6 +32,8 @@ DISPLAYSURF = pygame.display.set_mode((1024, 768))
 DISPLAYSURF.fill(WHITE)
 pygame.display.set_caption("Forescape")
 
+
+
 class Background():
     def __init__(self):
         self.bgimage = pygame.image.load('images/background.jpg')
@@ -76,6 +78,7 @@ INC_SPEED = pygame.USEREVENT + 1
 pygame.time.set_timer(INC_SPEED, 1000)
 saut = 20
 jump = False
+#scores = font_small.render(str(SCORE), True, BLACK)
 
 # Game Loop
 while True:
@@ -103,9 +106,9 @@ while True:
     back_ground.update()
     back_ground.render()
 
-    # DISPLAYSURF.blit(background, (0,0))
-    scores = font_small.render(str(SCORE), True, BLACK)
-    DISPLAYSURF.blit(scores, (10, 10))
+    # screen.blit(background, (0,0))
+    
+    
     # Add fruits
     game.all_fruits.draw(DISPLAYSURF)
     # Moves and Re-draws
@@ -115,14 +118,17 @@ while True:
 
     for fruits in game.all_fruits:
         fruits.forward()
+        #SCORE = fruits.scoreAdd()
+        #DISPLAYSURF.blit(scores, (10, 10))
+        #scores = font_small.render(str(SCORE), True, BLACK)
 
     # To be run if collision occurs between Player and Enemy
     if pygame.sprite.spritecollideany(P1, enemies):
         pygame.mixer.Sound('crash.wav').play()
         time.sleep(0.8)
 
-        DISPLAYSURF.fill(RED)
-        DISPLAYSURF.blit(game_over, (30, 250))
+        screen.fill(RED)
+        screen.blit(game_over, (30, 250))
 
         pygame.display.update()
         for entity in all_sprites:
