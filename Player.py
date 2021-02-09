@@ -16,6 +16,12 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = 70
         self.rect.y = 550
 
+    def update_health_bar(self, surface):
+
+        pygame.draw.rect(surface,(30,30,30),[100,100,self.max_health,5])
+        pygame.draw.rect(surface,(134,254,0),[100,100,self.health,5])
+        
+
     def move_right(self):
         if not self.game.check_collision(self, self.game.all_fruits):
             self.rect.x += self.velocity
