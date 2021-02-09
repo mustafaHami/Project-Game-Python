@@ -1,11 +1,7 @@
 import pygame
 from Player import Player
-<<<<<<< HEAD
-from Chainsaw import Chainsaw
-=======
 from Fruits import Fruits
 
->>>>>>> 5b6364ace9a8d3dfe557568c2d32abc3e0e034a5
 class Game:
 
     def __init__(self):

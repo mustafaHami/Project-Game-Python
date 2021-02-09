@@ -11,8 +11,8 @@ class Fruits(pygame.sprite.Sprite):
         self.health = 1
         self.image = pygame.image.load("images/"+random.choice(eat)+".png")
         self.rect = self.image.get_rect()
-        self.rect.x = 900 + random.randint(0, 500)
-        self.rect.y = 600
+        self.rect.x = 900 + random.randint(0, 700)
+        self.rect.y = 550
         self.velocity = 5
 
     def damage(self, amount):
@@ -23,6 +23,17 @@ class Fruits(pygame.sprite.Sprite):
     def forward(self):
         if not self.game.check_collision(self, self.game.all_players):
             self.rect.x -= self.velocity
+            if self.rect.x <= -200:
+                self.rect.x = 1300 + random.randint(0,200)
         else:
-            self.rect.x = 1300
+            self.image = pygame.image.load("images/"+random.choice(eat)+".png")
+            self.rect.x = 1300 + random.randint(0,200)
+            position = random.randint(1,2)
+
+            if position == 1:
+                self.rect.y = 400
+            else:
+                self.rect.y = 550
+
+            
 
