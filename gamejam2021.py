@@ -130,13 +130,13 @@ while True:
 
     for fruits in game.all_fruits:
         fruits.forward()
-        #SCORE = fruits.scoreAdd()
+        SCORE = fruits.getScore()
         #DISPLAYSURF.blit(scores, (10, 10))
-        #scores = font_small.render(str(SCORE), True, BLACK)
+        scores = font_small.render(str(SCORE), True, BLACK)
+        pygame.display.update()
 
     # To be run if collision occurs between Player and Enemy
     if pygame.sprite.spritecollideany(P1, enemies):
-        pygame.mixer.Sound('crash.wav').play()
         time.sleep(0.8)
 
         DISPLAYSURF.fill(RED)

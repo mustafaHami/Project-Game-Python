@@ -37,6 +37,10 @@ class Player(pygame.sprite.Sprite):
         if self.rect.right < 1024:
             if pressed_keys[K_RIGHT]:
                 self.rect.move_ip(5, 0)
+    
+    def update_health_bar(self, surface):
+        pygame.draw.rect(surface,(30,30,30),[100,100,self.max_health,5])
+        pygame.draw.rect(surface,(134,254,0),[100,100,self.health,5])
 
 
     def jumpy(self,saut):

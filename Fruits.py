@@ -21,10 +21,10 @@ class Fruits(pygame.sprite.Sprite):
         if self.health <= 0:
             self.rect.x = 900
     
-    def scoreAdd(self):
-        if self.game.check_collision(self, self.game.all_players):
-            self.score += 10
-            print(4)
+    def getVelocity(self):
+        return self.velocity
+
+    def getScore(self):
         return self.score
     
     def forward(self):
@@ -34,10 +34,10 @@ class Fruits(pygame.sprite.Sprite):
                 self.rect.x = 1300 + random.randint(0,200)
                 self.image = pygame.image.load("images/"+random.choice(eat)+".png")
         else:
-            self.scoreAdd
             self.velocity += 0.5
-            if self.velocity == 15:
-                self.velocity = 15
+            if self.velocity == 7:
+                self.velocity = 7
+
             self.image = pygame.image.load("images/"+random.choice(eat)+".png")
             self.rect.x = 1300 + random.randint(0,200)
             position = random.randint(1,2)
@@ -48,7 +48,8 @@ class Fruits(pygame.sprite.Sprite):
             else:
                 self.rect.y = 550
                 self.image = pygame.image.load("images/"+random.choice(eat)+".png")
-
+            position = random.randint(1,2)
+            self.score = int(self.score + 10 + self.velocity)
    
 
             
