@@ -99,9 +99,6 @@ while True:
         jump = False
 
 
-    print(saut)
-
-
     back_ground.update()
     back_ground.render()
 
