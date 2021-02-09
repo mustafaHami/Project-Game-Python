@@ -17,6 +17,7 @@ class Game:
         self.pressed = {}
         for i in range(3):
             self.spawn_fruit()
+        
     
     def check_collision(self, sprite, group):
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)

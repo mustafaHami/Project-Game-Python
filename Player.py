@@ -1,19 +1,19 @@
 from pygame.locals import *
 import time
 import pygame
+import animation
 
 
 
-class Player(pygame.sprite.Sprite):
+class Player(animation.AnimateSprite):
 
     def __init__(self, game):
-        super().__init__()
+        super().__init__("ArmatureWalk")
         self.health = 100
         self.max_health = 100
         self.attack = 10
         self.velocity = 5
         self.jump = 5
-        self.image = pygame.image.load('images/tree_player.png')
         self.rect = self.image.get_rect()
         self.rect.x = 70
         self.rect.y = 550
@@ -24,6 +24,10 @@ class Player(pygame.sprite.Sprite):
     def bonus(self, amount):
         self.health += amount
 
+    def update_animation(self):
+        self.animate()
+
+        
     def update_health_bar(self, surface):    
         pygame.draw.rect(surface,(30,30,30),[5, 5, self.max_health * 5 + 10, 30])
         pygame.draw.rect(surface,((100 - self.health) * 255 / 100, self.health* 255 / 100 ,0),[10,10,self.health * 5,20])

@@ -122,6 +122,9 @@ while True:
     #Health Bar
     game.player.update_health_bar(DISPLAYSURF)
 
+    #Animation
+    game.player.update_animation()
+
 
     for fruits in game.all_fruits:
         fruits.forward()
