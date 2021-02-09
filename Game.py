@@ -2,6 +2,7 @@ import pygame
 from Player import Player
 from Fruits import Fruits
 
+
 class Game:
 
     def __init__(self):

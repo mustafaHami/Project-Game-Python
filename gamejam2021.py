@@ -27,7 +27,8 @@ font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = font.render("Game Over", True, BLACK)
 
-# Create a white screen
+# Create a white DISPLAYSURF
+
 DISPLAYSURF = pygame.display.set_mode((1024, 768))
 DISPLAYSURF.fill(WHITE)
 pygame.display.set_caption("Forescape")
@@ -83,6 +84,9 @@ jump = False
 # Game Loop
 while True:
 
+    # Cycles through all occurring events
+
+
     # Every game events
     for event in pygame.event.get():
         if event.type == INC_SPEED:
@@ -106,15 +110,23 @@ while True:
     back_ground.update()
     back_ground.render()
 
-    # screen.blit(background, (0,0))
-    
-    
+    # DISPLAYSURF.blit(background, (0,0))
+    scores = font_small.render(str(SCORE), True, BLACK)
+
+    DISPLAYSURF.blit(scores, (10, 10))
+
+    # Moves and Re-draws all Sprites
+    DISPLAYSURF.blit(scores, (10, 10))
     # Add fruits
     game.all_fruits.draw(DISPLAYSURF)
     # Moves and Re-draws
+
     for entity in all_sprites:
         DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
+
+
+    game.player.update_health_bar(DISPLAYSURF)
 
     for fruits in game.all_fruits:
         fruits.forward()
@@ -127,8 +139,8 @@ while True:
         pygame.mixer.Sound('crash.wav').play()
         time.sleep(0.8)
 
-        screen.fill(RED)
-        screen.blit(game_over, (30, 250))
+        DISPLAYSURF.fill(RED)
+        DISPLAYSURF.blit(game_over, (30, 250))
 
         pygame.display.update()
         for entity in all_sprites:
