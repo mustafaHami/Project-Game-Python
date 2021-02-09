@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, game):
         super().__init__()
-        self.health = 100
+        self.health = 0
         self.max_health = 100
         self.attack = 10
         self.velocity = 5
@@ -17,6 +17,19 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 70
         self.rect.y = 550
+
+    def update_health_bar(self, surface):
+
+        
+        pygame.draw.rect(surface,(30,30,30),[95,45,self.max_health * 5 + 10,30])
+        if self.health == 0:
+             pygame.draw.rect(surface,(255,0,0),[100,50,self.health * 5,20])
+        i = 1
+        while i <= 100:
+            if self.health == i:
+                pygame.draw.rect(surface,((100 - i) * 255 / 100, i* 255 / 100 ,0),[100,50,self.health * 5,20])
+            i += 1
+
 
     def move_right(self):
         if not self.game.check_collision(self, self.game.all_fruits):
@@ -33,10 +46,10 @@ class Player(pygame.sprite.Sprite):
         # self.rect.move_ip(0,5)
         if self.rect.left > 0:
             if pressed_keys[K_LEFT]:
-                self.rect.move_ip(-5, 0)
+                self.rect.move_ip(-10, 0)
         if self.rect.right < 1024:
             if pressed_keys[K_RIGHT]:
-                self.rect.move_ip(5, 0)
+                self.rect.move_ip(10, 0)
 
 
     def jumpy(self,saut):
