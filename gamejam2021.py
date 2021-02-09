@@ -77,12 +77,8 @@ pygame.time.set_timer(INC_SPEED, 1000)
 saut = 20
 jump = False
 
-
 # Game Loop
 while True:
-
-    # Cycles through all occurring events
-
 
     # Every game events
     for event in pygame.event.get():

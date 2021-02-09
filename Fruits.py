@@ -9,8 +9,8 @@ class Fruits(pygame.sprite.Sprite):
     def __init__(self, game):
         super().__init__()
         self.game = game
-        self.damage = 20
-        self.bonus = 3
+        self.damage = 30
+        self.bonus = 1
         self.image_name = "kiwi"
         self.image = pygame.image.load("images/"+random.choice(eat)+".png")
         self.rect = self.image.get_rect()
@@ -36,8 +36,7 @@ class Fruits(pygame.sprite.Sprite):
                 if self.rect.x <= -200:
                     self.image_name = random.choice(eat2)
                     self.image = pygame.image.load("images/"+self.image_name+".png")
-                    self.rect.x = 1300 + random.randint(0,200)
-                    
+                    self.rect.x = 1300 + random.randint(0,100)
             else:
                 
                 #if the player does collide a fruit:
@@ -47,7 +46,6 @@ class Fruits(pygame.sprite.Sprite):
                     self.velocity = 25
                 self.game.score = self.game.score + 10 + int(self.velocity)
                 self.score = self.game.score + 10 + int(self.velocity)
-                print(self.score)
                 self.image_name = random.choice(eat2)
                 if(self.game.player.health <= 97):
                     self.game.player.bonus(self.bonus)
