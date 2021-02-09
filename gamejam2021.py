@@ -125,8 +125,9 @@ while True:
         DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
 
-
+    #Health Bar
     game.player.update_health_bar(DISPLAYSURF)
+    
 
     for fruits in game.all_fruits:
         fruits.forward()

@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, game):
         super().__init__()
-        self.health = 0
+        self.health = 100
         self.max_health = 100
         self.attack = 10
         self.velocity = 5
@@ -22,13 +22,9 @@ class Player(pygame.sprite.Sprite):
 
         
         pygame.draw.rect(surface,(30,30,30),[95,45,self.max_health * 5 + 10,30])
-        if self.health == 0:
-             pygame.draw.rect(surface,(255,0,0),[100,50,self.health * 5,20])
-        i = 1
-        while i <= 100:
-            if self.health == i:
-                pygame.draw.rect(surface,((100 - i) * 255 / 100, i* 255 / 100 ,0),[100,50,self.health * 5,20])
-            i += 1
+
+        pygame.draw.rect(surface,((100 - self.health) * 255 / 100, self.health* 255 / 100 ,0),[100,50,self.health * 5,20])
+
 
 
     def move_right(self):
