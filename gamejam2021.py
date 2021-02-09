@@ -93,7 +93,7 @@ while True:
         saut -= 1
         P1.jumpy(saut)
 
-    if saut == -20:
+    if saut == -19:
         saut = 20
         jump = False
 
