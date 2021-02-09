@@ -9,6 +9,7 @@ class Fruits(pygame.sprite.Sprite):
         super().__init__()
         self.game = game
         self.health = 1
+        self.image_name = "default"
         self.image = pygame.image.load("images/"+random.choice(eat)+".png")
         self.rect = self.image.get_rect()
         self.rect.x = 900 + random.randint(0, 700)
@@ -32,10 +33,10 @@ class Fruits(pygame.sprite.Sprite):
             self.rect.x -= self.velocity
             if self.rect.x <= -200:
                 self.rect.x = 1300 + random.randint(0,200)
-                self.image = pygame.image.load("images/"+random.choice(eat)+".png")
+                self.image_name = random.choice(eat)
+                self.image = pygame.image.load("images/"+self.image_name+".png")
         else:
             self.velocity += 0.2
-            print(self.velocity)
             if self.velocity == 7:
                 self.velocity = 7
 
