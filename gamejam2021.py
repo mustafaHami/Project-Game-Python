@@ -57,8 +57,8 @@ class Background():
             self.bgX2 = self.rectBGimg.width
 
     def render(self):
-        screen.blit(self.bgimage, (self.bgX1, self.bgY1))
-        screen.blit(self.bgimage, (self.bgX2, self.bgY2))
+        DISPLAYSURF.blit(self.bgimage, (self.bgX1, self.bgY1))
+        DISPLAYSURF.blit(self.bgimage, (self.bgX2, self.bgY2))
 
 
 # Setting up Sprites
@@ -92,7 +92,6 @@ while True:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE or event.key == pygame.K_UP and saut == 20:
                 jump = True
-                print("t'as appuyer")
 
     if jump == True and saut >= -20:
         saut -= 1
@@ -113,7 +112,7 @@ while True:
     game.all_fruits.draw(DISPLAYSURF)
     # Moves and Re-draws
     for entity in all_sprites:
-        screen.blit(entity.image, entity.rect)
+        DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
 
     for fruits in game.all_fruits:
