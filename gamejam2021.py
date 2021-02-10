@@ -3,6 +3,7 @@ from pygame.locals import *
 from Game import Game
 import time
 import random
+from tkinter import * 
 # Initializing
 pygame.init()
 
@@ -61,6 +62,57 @@ game = Game()
 P1 = game.player
 back_ground = Background()
 
+def rungame():
+    if len(name_entry.get()) != 0:
+        window.destroy()
+        game.is_playing = True
+
+def tutorial():
+    tuto_window = Tk()
+    window.geometry("1024x768")
+    window.config(background ="#97CE68")
+
+    label_title = Label(frame,text="Your mission is to escape this forest",font=("Courrier",40), bg = "#97CE68",fg="black")
+
+
+#/////////////////////////////MENU WINDOW//////////////////////////////////////////////////////////
+window = Tk()
+
+#Menu 
+window.title("Forescape")
+window.geometry("1024x768")
+window.config(background ="#97CE68")
+
+#creating Frame 
+frame = Frame(window,bg='#97CE68')
+
+#creating image 
+width = 500
+height = 100 
+image = PhotoImage(file="images/logo_size.png")
+canvas = Canvas(window, width=width, height=height)
+canvas.create_image(width/2,height/2,image=image)
+canvas.pack()
+#add text
+label_title = Label(frame,text="Enter your name",font=("Courrier",40), bg = "#97CE68",fg="black")
+label_title.grid(row=1,column=0,sticky=W)
+name_entry = Entry(frame,font=("Courrier",40), bg = "#97CE68",fg="black")
+name_entry.grid(row=1,column=1,sticky=W)
+global name 
+name = name_entry.get()
+frame.pack(expand=YES)
+#addign a button 
+play_button = Button(window,text="Tutorial",font=("Courrier",40), bg = "white",fg="green",command=tutorial)
+play_button.pack(fill=X)
+play_button = Button(window,text="Play",font=("Courrier",40), bg = "white",fg="green",command=rungame)
+play_button.pack(fill=X)
+
+window.mainloop()
+#/////////////////////////////MENU WINDOW//////////////////////////////////////////////////////////
+
+
+
+
 # Creating Sprites Groups
 enemies = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
@@ -86,7 +138,6 @@ while True:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_z and saut == 20:
                 jump = True
-
     if jump == True and saut >= -20:
         saut -= 1
         P1.jumpy(saut)
