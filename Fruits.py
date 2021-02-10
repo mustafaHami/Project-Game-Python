@@ -30,6 +30,7 @@ class Fruits(pygame.sprite.Sprite):
     
     def forward(self):
         if self.image_name != "cursed_apple" and self.image_name != "cursed_strawberry" and self.image_name != "cursed_banana":
+            FruitSound = pygame.mixer.Sound("Music/FruitSound.wav")
             #if the player does not collide a fruit
             if not self.game.check_collision(self, self.game.all_players):
                 self.rect.x -= self.velocity
@@ -40,6 +41,7 @@ class Fruits(pygame.sprite.Sprite):
             else:
                 #if the player does collide a fruit:
                 #the velocity is increased little by little
+                FruitSound.play()
                 self.velocity += 0.2
                 if self.velocity > 25:
                     self.velocity = 25

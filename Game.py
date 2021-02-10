@@ -28,8 +28,9 @@ class Game:
 
     def game_over(self):
         self.all_fruits = pygame.sprite.Group()
-        self.player.health = self.player.max_health
+        self.player.healthbar = False
         self.is_playing = False
+        self.player.mouvement = False
         print("Game Over !")
         self.highScore(self.score)
 
