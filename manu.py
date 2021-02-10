@@ -53,6 +53,7 @@ class Background():
         if self.bgX2 <= -self.rectBGimg.width:
             self.bgX2 = self.rectBGimg.width
 
+<<<<<<< HEAD
     def render(self):
         DISPLAYSURF.blit(self.bgimage, (self.bgX1, self.bgY1))
         DISPLAYSURF.blit(self.bgimage, (self.bgX2, self.bgY2))
@@ -61,6 +62,12 @@ class Background():
 game = Game()
 P1 = game.player
 back_ground = Background()
+=======
+pygame.display.set_caption("Forescape")
+#///////////////////////////////////////DISPLAY PARAMETERS////////////////////////////////////////////////////////
+game = Game()
+P1 = game.player
+>>>>>>> 63f14ab4dbf281e94fc6dd28b3c45b99bb76fde9
 
 def rungame():
     if len(name_entry.get()) != 0:
@@ -99,6 +106,11 @@ play_button.pack(fill=X)
 window.mainloop()
 #/////////////////////////////MENU WINDOW//////////////////////////////////////////////////////////
 
+<<<<<<< HEAD
+=======
+# Setting up Sprites
+back_ground = Background() 
+>>>>>>> 63f14ab4dbf281e94fc6dd28b3c45b99bb76fde9
 
 
 
