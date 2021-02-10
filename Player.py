@@ -17,9 +17,14 @@ class Player(animation.AnimateSprite):
         self.rect = self.image.get_rect()
         self.rect.x = 70
         self.rect.y = 550
+        self.game = game
 
     def damage(self, amount):
-        self.health -= amount
+        if self.health > amount:
+            self.health -= amount
+        else:
+            self.game.game_over()
+        
 
     def bonus(self, amount):
         self.health += amount

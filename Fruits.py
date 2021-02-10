@@ -79,8 +79,7 @@ class Fruits(pygame.sprite.Sprite):
                 self.game.player.damage(self.damage)
 
                 if self.game.player.health <= 0:
-                    print("Game Over !")
-                    self.game.highScore(self.game.score)
+                    self.game.player.health = 0
 
                 if self.game.score >= 20:
                     self.game.score = self.game.score - 20
