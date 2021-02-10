@@ -16,7 +16,6 @@ class Game:
         self.all_players.add(self.player)
         self.score = 0
         self.highest_score = [0]
-        #self.double_jump = False
         #generate fruits
         self.all_fruits = pygame.sprite.Group()
         self.pressed = {}
