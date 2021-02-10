@@ -153,10 +153,13 @@ saut = 20
 jump = False
 random = random.randint(0,100)
 
-<<<<<<< HEAD
+
 if game.is_playing == True:
-    # Game Loop
+# Game Loop
     while True:
+
+        game.player.update_animation()
+        game.player.start_animation()
 
         # Every game events
         for event in pygame.event.get():
@@ -168,81 +171,47 @@ if game.is_playing == True:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_z and saut == 20:
                     jump = True
+
         if jump == True and saut >= -20:
             saut -= 1
             P1.jumpy(saut)
+            game.player.stop_animation()
 
         if saut == -19:
             saut = 20
             jump = False
+        
 
-        back_ground.update()
-        back_ground.render()
-
-        # Add fruits
-        game.all_fruits.draw(DISPLAYSURF)
-        # Moves and Re-draws
-=======
-# Game Loop
-while True:
-
-    game.player.update_animation()
-    game.player.start_animation()
-
-    # Every game events
-    for event in pygame.event.get():
-        if event.type == INC_SPEED:
-            SPEED += 0.5
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_z and saut == 20:
-                jump = True
-
-    if jump == True and saut >= -20:
-        saut -= 1
-        P1.jumpy(saut)
-        game.player.stop_animation()
-
-    if saut == -19:
-        saut = 20
-        jump = False
-    
->>>>>>> 4d9c415f51ae78392a62f8d5f320f8f9ed80f3f5
-
-        for entity in all_sprites:
-            DISPLAYSURF.blit(entity.image, entity.rect)
-            entity.move()
-
-        #Health Bar
-        game.player.update_health_bar(DISPLAYSURF)
-
-        #Animation
-        game.player.update_animation()
-
-        for fruits in game.all_fruits:
-            fruits.forward()
-            game.update(DISPLAYSURF)
-            pygame.display.update()
-
-<<<<<<< HEAD
-        # To be run if collision occurs between Player and Enemy
-        if pygame.sprite.spritecollideany(P1, enemies):
-            time.sleep(0.8)
-=======
->>>>>>> 4d9c415f51ae78392a62f8d5f320f8f9ed80f3f5
-
-            DISPLAYSURF.fill(RED)
-            DISPLAYSURF.blit(game_over, (30, 250))
-
-            pygame.display.update()
             for entity in all_sprites:
-                entity.kill()
-            time.sleep(1.5)
-            pygame.quit()
-            sys.exit()
+                DISPLAYSURF.blit(entity.image, entity.rect)
+                entity.move()
+
+            #Health Bar
+            game.player.update_health_bar(DISPLAYSURF)
+
+            #Animation
+            game.player.update_animation()
+
+            for fruits in game.all_fruits:
+                fruits.forward()
+                game.update(DISPLAYSURF)
+                pygame.display.update()
+
+            # To be run if collision occurs between Player and Enemy
+            if pygame.sprite.spritecollideany(P1, enemies):
+                time.sleep(0.8)
 
 
-        pygame.display.update()
-        FramePerSec.tick(FPS)
+                DISPLAYSURF.fill(RED)
+                DISPLAYSURF.blit(game_over, (30, 250))
+
+                pygame.display.update()
+                for entity in all_sprites:
+                    entity.kill()
+                time.sleep(1.5)
+                pygame.quit()
+                sys.exit()
+
+
+            pygame.display.update()
+            FramePerSec.tick(FPS)
