@@ -2,6 +2,8 @@ import pygame, sys
 from pygame.locals import *
 from Game import Game
 import time
+import random
+from tkinter import * 
 # Initializing
 pygame.init()
 
@@ -19,14 +21,12 @@ WHITE = (255, 255, 255)
 # Other Variables for use in the program
 SPEED = 5
 
-
 # Setting up fonts that will be used
 font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = font.render("Game Over", True, BLACK)
 
-# Create a white DISPLAYSURF
-
+# Create a white screen
 DISPLAYSURF = pygame.display.set_mode((1024, 768))
 DISPLAYSURF.fill(WHITE)
 pygame.display.set_caption("Forescape")
@@ -57,12 +57,59 @@ class Background():
         DISPLAYSURF.blit(self.bgimage, (self.bgX1, self.bgY1))
         DISPLAYSURF.blit(self.bgimage, (self.bgX2, self.bgY2))
 
-
-
 # Setting up Sprites
 game = Game()
 P1 = game.player
 back_ground = Background()
+
+def rungame():
+    if len(name_entry.get()) != 0:
+        window.destroy()
+        game.is_playing = True
+
+def tutorial():
+    tuto_window = Tk()
+    window.geometry("1024x768")
+    window.config(background ="#97CE68")
+
+    label_title = Label(frame,text="Your mission is to escape this forest",font=("Courrier",40), bg = "#97CE68",fg="black")
+
+
+#/////////////////////////////MENU WINDOW//////////////////////////////////////////////////////////
+window = Tk()
+
+#Menu 
+window.title("Forescape")
+window.geometry("1024x768")
+window.config(background ="#97CE68")
+
+#creating Frame 
+frame = Frame(window,bg='#97CE68')
+
+#creating image 
+width = 500
+height = 100 
+image = PhotoImage(file="images/logo_size.png")
+canvas = Canvas(window, width=width, height=height)
+canvas.create_image(width/2,height/2,image=image)
+canvas.pack()
+#add text
+label_title = Label(frame,text="Enter your name",font=("Courrier",40), bg = "#97CE68",fg="black")
+label_title.grid(row=1,column=0,sticky=W)
+name_entry = Entry(frame,font=("Courrier",40), bg = "#97CE68",fg="black")
+name_entry.grid(row=1,column=1,sticky=W)
+global name 
+name = name_entry.get()
+frame.pack(expand=YES)
+#addign a button 
+play_button = Button(window,text="Tutorial",font=("Courrier",40), bg = "white",fg="green",command=tutorial)
+play_button.pack(fill=X)
+play_button = Button(window,text="Play",font=("Courrier",40), bg = "white",fg="green",command=rungame)
+play_button.pack(fill=X)
+
+window.mainloop()
+#/////////////////////////////MENU WINDOW//////////////////////////////////////////////////////////
+
 
 
 
@@ -76,6 +123,7 @@ INC_SPEED = pygame.USEREVENT + 1
 pygame.time.set_timer(INC_SPEED, 1000)
 saut = 20
 jump = False
+random = random.randint(0,100)
 
 # Game Loop
 while True:
@@ -88,9 +136,8 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE or event.key == pygame.K_UP and saut == 20:
+            if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_z and saut == 20:
                 jump = True
-
     if jump == True and saut >= -20:
         saut -= 1
         P1.jumpy(saut)
@@ -99,13 +146,8 @@ while True:
         saut = 20
         jump = False
 
-
     back_ground.update()
     back_ground.render()
-
-    # DISPLAYSURF.blit(background, (0,0))
-
-    # Moves and Re-draws all Sprites
 
     # Add fruits
     game.all_fruits.draw(DISPLAYSURF)
@@ -120,7 +162,6 @@ while True:
 
     #Animation
     game.player.update_animation()
-
 
     for fruits in game.all_fruits:
         fruits.forward()
