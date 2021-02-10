@@ -4,6 +4,7 @@ from Game import Game
 import time
 import random
 from tkinter import * 
+
 # Initializing
 pygame.init()
 
@@ -65,7 +66,7 @@ tutorial = False
 def rungame():
     if len(name_entry.get()) != 0:
         window.destroy()
-        game.is_playing = True
+        game.start()
 
 def tutorial():
     tuto_window = Toplevel()
@@ -139,9 +140,6 @@ play_button.pack(fill=X)
 
 window.mainloop()
 #/////////////////////////////MENU WINDOW//////////////////////////////////////////////////////////
-
-
-
 
 # Creating Sprites Groups
 enemies = pygame.sprite.Group()
