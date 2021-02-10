@@ -126,6 +126,9 @@ random = random.randint(0,100)
 # Game Loop
 while True:
 
+    game.player.update_animation()
+    game.player.start_animation()
+
     # Every game events
     for event in pygame.event.get():
         if event.type == INC_SPEED:
@@ -136,13 +139,16 @@ while True:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_z and saut == 20:
                 jump = True
+
     if jump == True and saut >= -20:
         saut -= 1
         P1.jumpy(saut)
+        game.player.stop_animation()
 
     if saut == -19:
         saut = 20
         jump = False
+    
 
     back_ground.update()
     back_ground.render()
@@ -158,8 +164,6 @@ while True:
     #Health Bar
     game.player.update_health_bar(DISPLAYSURF)
 
-    #Animation
-    game.player.update_animation()
 
     for fruits in game.all_fruits:
         fruits.forward()
