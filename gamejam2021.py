@@ -4,7 +4,6 @@ from Game import Game
 import time
 import random
 from tkinter import * 
-
 # Initializing
 pygame.init()
 
@@ -66,7 +65,7 @@ back_ground = Background()
 def rungame():
     if len(name_entry.get()) != 0:
         window.destroy()
-        game.start()
+        game.is_playing = True
 
 def tutorial():
     tuto_window = Tk()
