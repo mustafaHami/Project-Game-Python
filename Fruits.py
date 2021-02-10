@@ -49,7 +49,6 @@ class Fruits(pygame.sprite.Sprite):
                 if(self.game.player.health <= 97):
                     self.game.player.bonus(self.bonus)
                 self.rect.x = 1300 + random.randint(0,100)
-                print(self.image_name)
                 self.image = pygame.image.load("images/"+self.image_name+".png")
 
                 position = random.randint(1,2)
