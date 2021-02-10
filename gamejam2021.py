@@ -2,6 +2,7 @@ import pygame, sys
 from pygame.locals import *
 from Game import Game
 import time
+import random
 # Initializing
 pygame.init()
 
@@ -19,14 +20,12 @@ WHITE = (255, 255, 255)
 # Other Variables for use in the program
 SPEED = 5
 
-
 # Setting up fonts that will be used
 font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = font.render("Game Over", True, BLACK)
 
-# Create a white DISPLAYSURF
-
+# Create a white screen
 DISPLAYSURF = pygame.display.set_mode((1024, 768))
 DISPLAYSURF.fill(WHITE)
 pygame.display.set_caption("Forescape")
@@ -57,13 +56,10 @@ class Background():
         DISPLAYSURF.blit(self.bgimage, (self.bgX1, self.bgY1))
         DISPLAYSURF.blit(self.bgimage, (self.bgX2, self.bgY2))
 
-
 # Setting up Sprites
 game = Game()
 P1 = game.player
 back_ground = Background()
-
-
 
 # Creating Sprites Groups
 enemies = pygame.sprite.Group()
@@ -75,6 +71,7 @@ INC_SPEED = pygame.USEREVENT + 1
 pygame.time.set_timer(INC_SPEED, 1000)
 saut = 20
 jump = False
+random = random.randint(0,100)
 
 # Game Loop
 while True:
@@ -87,7 +84,7 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE or event.key == pygame.K_UP and saut == 20:
+            if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_z and saut == 20:
                 jump = True
 
     if jump == True and saut >= -20:
@@ -98,13 +95,8 @@ while True:
         saut = 20
         jump = False
 
-
     back_ground.update()
     back_ground.render()
-
-    # DISPLAYSURF.blit(background, (0,0))
-
-    # Moves and Re-draws all Sprites
 
     # Add fruits
     game.all_fruits.draw(DISPLAYSURF)
@@ -119,7 +111,6 @@ while True:
 
     #Animation
     game.player.update_animation()
-
 
     for fruits in game.all_fruits:
         fruits.forward()

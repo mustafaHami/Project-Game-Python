@@ -47,13 +47,11 @@ class Player(animation.AnimateSprite):
         # if pressed_keys[K_DOWN]:
         # self.rect.move_ip(0,5)
         if self.rect.left > 0:
-            if pressed_keys[K_LEFT]:
+            if pressed_keys[K_LEFT] or pressed_keys[K_q]:
                 self.rect.move_ip(-9, 0)
         if self.rect.right < 1024:
-            if pressed_keys[K_RIGHT]:
+            if pressed_keys[K_RIGHT] or pressed_keys[K_d]:
                 self.rect.move_ip(9, 0)
-
-
 
     def jumpy(self,saut):
         if saut != -20: 
