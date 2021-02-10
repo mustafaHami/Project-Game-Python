@@ -48,11 +48,10 @@ DISPLAYSURF.blit(logo,(100,100))
 pygame.display.set_caption("Forescape")
 #///////////////////////////////////////DISPLAY PARAMETERS////////////////////////////////////////////////////////
 game = Game()
-
+P1 = game.player
 
 def rungame():
     if len(name_entry.get()) != 0:
-        print(name_entry.get())
         window.destroy()
         game.is_playing = True
 
@@ -89,7 +88,6 @@ window.mainloop()
 #/////////////////////////////MENU WINDOW//////////////////////////////////////////////////////////
 
 # Setting up Sprites
-P1 = game.player
 back_ground = Background() 
 
 saut = 20

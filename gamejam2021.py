@@ -56,10 +56,6 @@ class Background():
     def render(self):
         DISPLAYSURF.blit(self.bgimage, (self.bgX1, self.bgY1))
         DISPLAYSURF.blit(self.bgimage, (self.bgX2, self.bgY2))
-<<<<<<< HEAD
-=======
-
->>>>>>> 072dda4a429a6f607952a6e36ed7bc40ad125ec0
 
 
 # Setting up Sprites
