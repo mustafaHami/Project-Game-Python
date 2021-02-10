@@ -18,6 +18,7 @@ class Player(animation.AnimateSprite):
         self.rect.x = 70
         self.rect.y = 550
         self.game = game
+        self.name = '' 
 
     def damage(self, amount):
         if self.health > amount:

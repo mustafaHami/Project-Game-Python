@@ -1,4 +1,5 @@
 import pygame, sys
+import os 
 from Player import Player
 from Fruits import Fruits
 DISPLAYSURF = pygame.display.set_mode((1024, 768))
@@ -31,7 +32,29 @@ class Game:
         self.player.health = self.player.max_health
         self.is_playing = False
         print("Game Over !")
-        self.highScore(self.score)
+        self.highScore(self.score) 
+        #open the score file to get the highest score 
+        if os.path.exists("scores.txt"):
+            file = open("scores.txt",'r')
+            line = file.readline()
+            tabline = line.split(' ')
+            file.close()
+            highest_score = tabline[1]
+
+            if self.score > int(highest_score):
+                file = open("scores.txt","w")
+                file.write(self.player.name)
+                file.write(' ')
+                file.write(str(self.score))
+                file.write('\n')
+                file.close()
+        else:
+            file = open("scores.txt","w")
+            file.write(self.player.name)
+            file.write(' ')
+            file.write(str(self.score))
+            file.write('\n')
+            file.close()
 
     def update(self, screen):
         Police = pygame.font.Font("Fonts/bold_game_font_7.ttf", 40)
@@ -47,4 +70,13 @@ class Game:
             if score > i:
                 self.highest_score.insert(0,score)
                 break
+    
+        
+    def getHighestScore(self):
+        file = open("scores.txt",'r')
+        line = file.readline()
+        tabline = line.split(' ')
+        file.close()
+        highest_score = tabline[1]
+        return highest_score 
        

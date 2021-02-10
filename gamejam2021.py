@@ -31,6 +31,13 @@ DISPLAYSURF = pygame.display.set_mode((1024, 768))
 DISPLAYSURF.fill(WHITE)
 pygame.display.set_caption("Forescape")
 
+game_finish = pygame.image.load('images/background.jpg')
+game_finish = pygame.transform.scale(game_finish,(1024,768))
+logo = pygame.image.load('images/logo_size.png')
+over = pygame.image.load('images/game-over.png')
+over = pygame.transform.scale(over,(400,300))
+
+
 class Background():
     def __init__(self):
         self.bgimage = pygame.image.load('images/background.jpg')
@@ -64,6 +71,7 @@ back_ground = Background()
 
 def rungame():
     if len(name_entry.get()) != 0:
+        P1.name = name_entry.get()
         window.destroy()
         game.start()
 
@@ -128,8 +136,8 @@ label_title = Label(frame,text="Enter your name",font=("Courrier",40), bg = "#97
 label_title.grid(row=1,column=0,sticky=W)
 name_entry = Entry(frame,font=("Courrier",40), bg = "#97CE68",fg="black")
 name_entry.grid(row=1,column=1,sticky=W)
-global name 
-name = name_entry.get()
+print(name_entry.get()) 
+
 frame.pack(expand=YES)
 #addign a button 
 play_button = Button(window,text="Tutorial",font=("Courrier",40), bg = "white",fg="green",command=tutorial)
@@ -154,68 +162,84 @@ saut = 20
 jump = False
 random = random.randint(0,100)
 
+#P1.name = name_entry.get()
+
+
 if game.is_playing == True:
     # Game Loop
     while True:
 
-        game.player.update_animation()
-        game.player.start_animation()
+        if game.is_playing:
+        #     game.player.update_animation()
+        #     game.player.start_animation()
 
-        # Every game events
-        for event in pygame.event.get():
-            if event.type == INC_SPEED:
-                SPEED += 0.5
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_z and saut == 20:
-                    jump = True
+        #     # Every game events
+        #     for event in pygame.event.get():
+        #         if event.type == INC_SPEED:
+        #             SPEED += 0.5
+        #         if event.type == pygame.QUIT:
+        #             pygame.quit()
+        #             sys.exit()
+        #         elif event.type == pygame.KEYDOWN:
+        #             if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_z and saut == 20:
+        #                 jump = True
 
-        if jump == True and saut >= -20:
-            saut -= 1
-            P1.jumpy(saut)
-            game.player.stop_animation()
+        #     if jump == True and saut >= -20:
+        #         saut -= 1
+        #         P1.jumpy(saut)
+        #         game.player.stop_animation()
 
-        if saut == -19:
-            saut = 20
-            jump = False
+        #     if saut == -19:
+        #         saut = 20
+        #         jump = False
+            
+
+        #     back_ground.update()
+        #     back_ground.render()
+
+        #     # Add fruits
+        #     game.all_fruits.draw(DISPLAYSURF)
+        #     # Moves and Re-draws
+
+        #     for entity in all_sprites:
+        #         DISPLAYSURF.blit(entity.image, entity.rect)
+        #         entity.move()
+
+        #     #Health Bar
+        #     game.player.update_health_bar(DISPLAYSURF)
+
+
+        #     for fruits in game.all_fruits:
+        #         fruits.forward()
+        #         game.update(DISPLAYSURF)
+        #         pygame.display.update()
+
+        #     # To be run if collision occurs between Player and Enemy
+        #     if pygame.sprite.spritecollideany(P1, enemies):
+        #         time.sleep(0.8)
+
+        #         DISPLAYSURF.fill(RED)
+        #         DISPLAYSURF.blit(game_over, (30, 250))
+
+        #         pygame.display.update()
+        #         for entity in all_sprites:
+        #             entity.kill()
+        #         time.sleep(1.5)
+        #         pygame.quit()
+        #         sys.exit()
+
+
+
+        #     FramePerSec.tick(FPS)
+        # else:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+        
+        pygame.display.update()
         
 
-        back_ground.update()
-        back_ground.render()
-
-        # Add fruits
-        game.all_fruits.draw(DISPLAYSURF)
-        # Moves and Re-draws
-
-        for entity in all_sprites:
-            DISPLAYSURF.blit(entity.image, entity.rect)
-            entity.move()
-
-        #Health Bar
-        game.player.update_health_bar(DISPLAYSURF)
 
 
-        for fruits in game.all_fruits:
-            fruits.forward()
-            game.update(DISPLAYSURF)
-            pygame.display.update()
 
-        # To be run if collision occurs between Player and Enemy
-        if pygame.sprite.spritecollideany(P1, enemies):
-            time.sleep(0.8)
-
-            DISPLAYSURF.fill(RED)
-            DISPLAYSURF.blit(game_over, (30, 250))
-
-            pygame.display.update()
-            for entity in all_sprites:
-                entity.kill()
-            time.sleep(1.5)
-            pygame.quit()
-            sys.exit()
-
-
-        pygame.display.update()
-        FramePerSec.tick(FPS)
