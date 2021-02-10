@@ -17,22 +17,19 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
 # Other Variables for use in the program
-SCREEN_WIDTH = 1024
-SCREEN_HEIGHT = 768
 SPEED = 5
-SCORE = 0
+
 
 # Setting up fonts that will be used
 font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = font.render("Game Over", True, BLACK)
 
-# Create a white screen
+# Create a white DISPLAYSURF
+
 DISPLAYSURF = pygame.display.set_mode((1024, 768))
 DISPLAYSURF.fill(WHITE)
 pygame.display.set_caption("Forescape")
-
-
 
 class Background():
     def __init__(self):
@@ -59,6 +56,10 @@ class Background():
     def render(self):
         DISPLAYSURF.blit(self.bgimage, (self.bgX1, self.bgY1))
         DISPLAYSURF.blit(self.bgimage, (self.bgX2, self.bgY2))
+<<<<<<< HEAD
+=======
+
+>>>>>>> 072dda4a429a6f607952a6e36ed7bc40ad125ec0
 
 
 # Setting up Sprites
@@ -105,26 +106,36 @@ while True:
     back_ground.update()
     back_ground.render()
 
-    # screen.blit(background, (0,0))
-    scores = font_small.render(str(SCORE), True, BLACK)
-    DISPLAYSURF.blit(scores, (10, 10))
+    # DISPLAYSURF.blit(background, (0,0))
+
+    # Moves and Re-draws all Sprites
+
     # Add fruits
     game.all_fruits.draw(DISPLAYSURF)
     # Moves and Re-draws
+
     for entity in all_sprites:
         DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
 
+    #Health Bar
+    game.player.update_health_bar(DISPLAYSURF)
+
+    #Animation
+    game.player.update_animation()
+
+
     for fruits in game.all_fruits:
         fruits.forward()
+        game.update(DISPLAYSURF)
+        pygame.display.update()
 
     # To be run if collision occurs between Player and Enemy
     if pygame.sprite.spritecollideany(P1, enemies):
-        pygame.mixer.Sound('crash.wav').play()
         time.sleep(0.8)
 
-        screen.fill(RED)
-        screen.blit(game_over, (30, 250))
+        DISPLAYSURF.fill(RED)
+        DISPLAYSURF.blit(game_over, (30, 250))
 
         pygame.display.update()
         for entity in all_sprites:
