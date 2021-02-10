@@ -4,7 +4,6 @@ from Game import Game
 import time
 import random
 from tkinter import * 
-
 # Initializing
 pygame.init()
 
