@@ -322,6 +322,7 @@ if game.is_playing == True:
                     file.write(str(game.score))
                     file.write(' ')
                     file.write('\n')
+                    NameScore2 = Police2.render(name + "  " + str(game.score),1,(255,50,50))
                     file.close()
                     file = open("scores.txt",'r')
                     line = file.readline()
@@ -329,7 +330,7 @@ if game.is_playing == True:
                     file.close()
                     name = tabline[0]
                     highest_score = tabline[1]
-                    Score2 = Police2.render(name + "  " + str(int(highest_score)),1,(255,50,50))
+
                 else:
                     file = open("scores.txt",'r')
                     line = file.readline()
@@ -339,7 +340,7 @@ if game.is_playing == True:
                     highest_score = tabline[1]
                     NameScore2 = Police2.render(name + "  " + highest_score,1,(255,50,50))
                     if game.score > int(highest_score):
-                        Score2 = Police2.render(name + "  " + str(game.score),1,(255,50,50))
+                        NameScore2 = Police2.render(name + "  " + str(game.score),1,(255,50,50))
                         file = open("scores.txt","w")
                         file.write(game.player.name)
                         file.write(' ')
