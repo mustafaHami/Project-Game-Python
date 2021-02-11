@@ -22,6 +22,7 @@ class Player(animation.AnimateSprite):
         self.mouvement = True
         self.name = '' 
 
+
     def damage(self, amount):
         if self.health > amount:
             self.health -= amount
@@ -66,5 +67,8 @@ class Player(animation.AnimateSprite):
                     self.rect.move_ip(9, 0)
 
     def jumpy(self,saut):
+        if self.mouvement == True:   
             if saut != -20:
                     self.rect.y -= saut
+                    self.stop_animation()
+
