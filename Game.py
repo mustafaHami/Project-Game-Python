@@ -40,6 +40,8 @@ class Game:
 
     def game_over(self):
         if self.enVie == "first":
+            pygame.mixer.music.load("son/Wordl2.mp3")
+            pygame.mixer.music.play(-1)
             self.enVie = "second"
             self.player.health = self.player.max_health
         elif self.enVie == "second":

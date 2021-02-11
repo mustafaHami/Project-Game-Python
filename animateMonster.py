@@ -5,8 +5,8 @@ class AnimateMonsterSprite(pygame.sprite.Sprite):
     def __init__(self, sprite_name):
         super().__init__()
         self.image = pygame.image.load(f'images_ennemies/{sprite_name}.png')
-        self.tailleY = 130
-        self.tailleX = 130
+        self.tailleY = 180
+        self.tailleX = 180
         self.image = pygame.transform.scale(self.image,(self.tailleX,self.tailleY))
         self.current_image = 0
         self.images = animation.get(sprite_name)

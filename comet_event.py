@@ -22,7 +22,6 @@ class CometFallEvent:
 
     def attempt_fall(self):
         if self.is_full_loded():
-            print("Activer")
             self.comet()
             self.reset_percent()
 

@@ -25,10 +25,10 @@ class Monster(animateMonster.AnimateMonsterSprite):
             self.nb -= 1
             self.attack += 0.2
             # réapparaitre le meme monstre
-            self.tailleY += 20
+            self.tailleY += 15
             #self.image = pygame.transform.scale(self.image, (self.tailleX, self.tailleY))
             self.rect.x = 900 + random.randint(0, 200)
-            self.rect.y -= 21
+            self.rect.y -= 16
             self.max_health += 20
             self.velocity = random.randint(2,4)
             self.health = self.max_health

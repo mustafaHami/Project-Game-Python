@@ -22,7 +22,6 @@ class Comet(pygame.sprite.Sprite):
         self.rect.y += self.velocity
 
         if self.rect.y >= 650:
-            print("sole")
             self.remove()
 
         # verifier si le meteroirt touche le jouer
