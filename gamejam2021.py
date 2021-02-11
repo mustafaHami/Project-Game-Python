@@ -370,13 +370,7 @@ if game.is_playing == True:
                     if event.type == pygame.MOUSEBUTTONUP:
                         game.enVie = "first"
                         P1.health = P1.max_health
-                        monster.rect.y = 560
-                        monster.max_health = 110
-                        monster.health = 110
-                        monster.nb = 10
-                        monster.attack = 0.
-                        monster.tailleY = 130
-                        monster.tailleY = 130
+
 
                     # game over
                     '''if game.game_over = True:
