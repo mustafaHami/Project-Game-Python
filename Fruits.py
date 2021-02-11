@@ -79,7 +79,8 @@ class Fruits(pygame.sprite.Sprite):
                 self.velocity += 0.2
                 if self.velocity > 25:
                     self.velocity = 25
-
+                DamageSound = pygame.mixer.Sound("Music/Damage_sound.wav")
+                DamageSound.play()
                 self.image_name = random.choice(eat2)
                 self.game.player.damage(self.damage)
 
