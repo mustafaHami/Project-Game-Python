@@ -63,9 +63,11 @@ class Monster(animateMonster.AnimateMonsterSprite):
         else:
             self.game.player.damage(self.attack)
 
-    def remisZero(self):
+    def remisZero(self,animationMonster):
         self.rect.y = 560
         self.max_health = 110
         self.health = 110
         self.nb = 10
         self.attack = 0.2
+        self.tailleY = 130
+        self.tailleX = 130

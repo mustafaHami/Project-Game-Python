@@ -1,3 +1,5 @@
+#from tkinter import Label, W, Frame, Toplevel, PhotoImage, Canvas, Tk, Entry, YES, Button, X
+
 import pygame, sys
 import os 
 from pygame.locals import *
@@ -91,13 +93,13 @@ P1 = game.player
 back_ground = Background()
 back_ground2 = Background2()
 
-'''def rungame():
+def rungame():
     if len(name_entry.get()) != 0:
         P1.name = name_entry.get()
         window.destroy()
         game.start()
 
-def tutorial():
+'''def tutorial():
     tuto_window = Toplevel()
     tuto_window.title("Tutorial")
     tuto_window.geometry("1024x768")
@@ -547,14 +549,14 @@ if game.is_playing == True:
                     pygame.quit()
                     sys.exit()'''
 
-                if P1.health == 0:
+                if P1.health <= 0:
                     DISPLAYSURF.fill(BLACK)
                     DISPLAYSURF.blit(font_fin.render("CLICK DEUX FOIS POUR ALLER DANS L'AUTRE MONDE",True, WHITE), (30,350))
-                if event.type == pygame.MOUSEBUTTONUP:
-                    pygame.time.wait(3000)
-                    pygame.mixer.music.play(-1)
-                    enVie = "second"
-                    P1.health = P1.max_health
+                    if event.type == pygame.MOUSEBUTTONUP:
+                        pygame.time.wait(3000)
+                        pygame.mixer.music.play(-1)
+                        enVie = "second"
+                        P1.health = P1.max_health
 
                 pygame.display.update()
           
@@ -601,35 +603,56 @@ if game.is_playing == True:
                 if monster.nbKill() <= 0:
                     pygame.mixer.music.set_volume(0)
                     DISPLAYSURF.fill(BLACK)
-                    DISPLAYSURF.blit(
-                        font_fin.render("CLICK DEUX FOIS POUR ALLER DANS RETOURNER DANS VOTRE MONDE", True, WHITE),
-                        (20, 350))
+                    DISPLAYSURF.blit(font_fin.render("CLICK DEUX FOIS POUR ALLER DANS RETOURNER DANS VOTRE MONDE", True, WHITE),(20, 350))
                     if event.type == pygame.MOUSEBUTTONUP:
                         pygame.time.wait(3000)
                         enVie = "first"
                         P1.health = P1.max_health
-                        game.all_monsters.monster.remisZero()
+                        monster.remisZero()
                 # game over
-                elif P1.health == 0:
-                        for event in pygame.event.get():
+                elif P1.health <= 0:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            sys.exit()
+                if game.gameover == True:
+                    Police1 = pygame.font.Font("Fonts/Eczar-ExtraBold.ttf", 110)
+                    Police2 = pygame.font.Font("Fonts/Eczar-SemiBold.ttf", 50)
+                    Gameover = Police1.render("GAME OVER ", 0, (0,0,0))
+                    YourScore = Police2.render("YOUR SCORE", 1,(255,100,100))
+                    HighScore = Police2.render("HIGH SCORE" ,1,(255,100,100))
+                    NameScore1 = Police2.render(P1.name + "  " + str(game.score),1,(255,50,50))
+                    retry_button = pygame.image.load('images/refresh.png')
+                    retry_button = pygame.transform.scale(retry_button, (100, 100))
+                    retry_button_rect = retry_button.get_rect()
 
-                            if event.type == pygame.QUIT:
-                                pygame.quit()
-                                sys.exit()
-                    if game.gameover == True:
-                        Police1 = pygame.font.Font("Fonts/Eczar-ExtraBold.ttf", 110)
-                        Police2 = pygame.font.Font("Fonts/Eczar-SemiBold.ttf", 50)
-                        Gameover = Police1.render("GAME OVER ", 0, (0,0,0))
-                        YourScore = Police2.render("YOUR SCORE", 1,(255,100,100))
-                        HighScore = Police2.render("HIGH SCORE" ,1,(255,100,100))
-                        NameScore1 = Police2.render(P1.name + "  " + str(game.score),1,(255,50,50))
-                        retry_button = pygame.image.load('images/refresh.png')
-                        retry_button = pygame.transform.scale(retry_button, (100, 100))
-                        retry_button_rect = retry_button.get_rect()
 
-
-                        if os.path.exists("scores.txt"):
-                            if os.path.getsize("scores.txt") == 0:
+                    if os.path.exists("scores.txt"):
+                        if os.path.getsize("scores.txt") == 0:
+                            file = open("scores.txt","w")
+                            file.write(game.player.name)
+                            file.write(' ')
+                            file.write(str(game.score))
+                            file.write(' ')
+                            file.write('\n')
+                            file.close()
+                            file = open("scores.txt",'r')
+                            line = file.readline()
+                            tabline = line.split(' ')
+                            file.close()
+                            name = tabline[0]
+                            highest_score = tabline[1]
+                            Score2 = Police2.render(name + "  " + str(int(highest_score)),1,(255,50,50))
+                        else:
+                            file = open("scores.txt",'r')
+                            line = file.readline()
+                            tabline = line.split(' ')
+                            file.close()
+                            name = tabline[0]
+                            highest_score = tabline[1]
+                            NameScore2 = Police2.render(name + "  " + highest_score,1,(255,50,50))
+                            if game.score > int(highest_score):
+                                Score2 = Police2.render(name + "  " + str(game.score),1,(255,50,50))
                                 file = open("scores.txt","w")
                                 file.write(game.player.name)
                                 file.write(' ')
@@ -637,58 +660,24 @@ if game.is_playing == True:
                                 file.write(' ')
                                 file.write('\n')
                                 file.close()
-                                file = open("scores.txt",'r')
-                                line = file.readline()
-                                tabline = line.split(' ')
-                                file.close()
-                                name = tabline[0]
-                                highest_score = tabline[1]
-                                Score2 = Police2.render(name + "  " + str(int(highest_score)),1,(255,50,50))
-                            else:
-                                file = open("scores.txt",'r')
-                                line = file.readline()
-                                tabline = line.split(' ')
-                                file.close()
-                                name = tabline[0]
-                                highest_score = tabline[1]
-                                NameScore2 = Police2.render(name + "  " + highest_score,1,(255,50,50))
-                                if game.score > int(highest_score):
-                                    Score2 = Police2.render(name + "  " + str(game.score),1,(255,50,50))
-                                    file = open("scores.txt","w")
-                                    file.write(game.player.name)
-                                    file.write(' ')
-                                    file.write(str(game.score))
-                                    file.write(' ')
-                                    file.write('\n')
-                                    file.close()
 
-                        else:
-                            file = open("scores.txt","w")
-                            file.write(game.player.name)
-                            file.write(' ')
-                            file.write(str(game.score))
-                            file.write(' ')
-                            file.write('\n')
-                            NameScore2 = Police2.render(game.player.name + "  " + str(game.score),1,(255,50,50))
-                            file.close()
+                    else:
+                        file = open("scores.txt","w")
+                        file.write(game.player.name)
+                        file.write(' ')
+                        file.write(str(game.score))
+                        file.write(' ')
+                        file.write('\n')
+                        NameScore2 = Police2.render(game.player.name + "  " + str(game.score),1,(255,50,50))
+                        file.close()
 
-                        DISPLAYSURF.blit(Gameover, (190, 50))
-                        DISPLAYSURF.blit(YourScore, (100,225))
-                        DISPLAYSURF.blit(NameScore1, (125,350))
-                        DISPLAYSURF.blit(HighScore,(625,225))
-                        DISPLAYSURF.blit(NameScore2, (650,350))
-                        DISPLAYSURF.blit(retry_button,(190,500))
-                        pygame.display.update()
-
-                    for event in pygame.event.get():
-
-                        if event.type == pygame.QUIT:
-                            pygame.quit()
-                            sys.exit()
-                        if event.type == pygame.MOUSEBUTTONDOWN:
-                            if retry_button_rect.collidepoint(event.pos):
-                                game.is_playing = True
-                                game.game_over = False
+                    DISPLAYSURF.blit(Gameover, (190, 50))
+                    DISPLAYSURF.blit(YourScore, (100,225))
+                    DISPLAYSURF.blit(NameScore1, (125,350))
+                    DISPLAYSURF.blit(HighScore,(625,225))
+                    DISPLAYSURF.blit(NameScore2, (650,350))
+                    DISPLAYSURF.blit(retry_button,(190,500))
+                    pygame.display.update()
 
 
                 else:
@@ -704,9 +693,6 @@ if game.is_playing == True:
 
                         #Health Bar
                         game.player.update_health_bar(DISPLAYSURF)
-
-
-
 
             pygame.display.update()
 

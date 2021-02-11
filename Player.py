@@ -11,7 +11,7 @@ class Player(animation.AnimateSprite):
     def __init__(self, game):
         super().__init__("ArmatureWalk")
         self.game = game
-        self.health = 100
+        self.health = 10
         self.max_health = 100
         self.healthbar = True
         self.attack = 10

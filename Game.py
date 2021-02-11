@@ -9,7 +9,7 @@ class Game:
 
     def __init__(self):
         #define if the game is started or not 
-        self.is_playing = False
+        self.is_playing = True
         #player status
         #self.is_playing = False
         # generate a player
