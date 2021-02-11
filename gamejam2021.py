@@ -216,6 +216,8 @@ if game.is_playing == True:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_z and saut == 20:
                         jump = True
+                        JumpSound = pygame.mixer.Sound("Music/Jump_sound.mp3")
+                        JumpSound.play()
 
             if jump == True and saut >= -20:
                 saut -= 1
