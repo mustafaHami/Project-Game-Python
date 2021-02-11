@@ -1,13 +1,18 @@
 import pygame, sys
 from Player import Player
 from Fruits import Fruits
+from monster import Monster
+from comet_event import CometFallEvent
+DISPLAYSURF = pygame.display.set_mode((1024, 768))
 
 class Game:
 
     def __init__(self):
         #define if the game is started or not 
         self.is_playing = False
-        # generate a player 
+        #player status
+        #self.is_playing = False
+        # generate a player
         self.all_players = pygame.sprite.Group()
         self.player = Player(self)
         self.all_players.add(self.player)
@@ -16,6 +21,12 @@ class Game:
         #generate fruits
         self.all_fruits = pygame.sprite.Group()
         self.pressed = {}
+        # groupe de monstre
+        self.all_monsters = pygame.sprite.Group()
+        self.spawn_monster()
+        #comet
+        self.comet_event = CometFallEvent(self)
+
         self.gameover = False
     
     def check_collision(self, sprite, group):
@@ -43,6 +54,10 @@ class Game:
         Rendu = Police.render(f"Score : {self.score}", 1, (255,255,255)) 
         screen.blit(Rendu, (10, 40))
 
+    def update_comet(self, screen):
+        self.comet_event.update_bar(screen)
+        self.comet_event.all_comets.draw(screen)
+
     def spawn_fruit(self):
         fruit = Fruits(self)
         self.all_fruits.add(fruit)
@@ -52,6 +67,11 @@ class Game:
             if score > i:
                 self.highest_score.insert(0,score)
                 break
+            
+
+    # monster
+    def spawn_monster(self):
+        self.all_monsters.add(Monster(self))
     
         
     def getHighestScore(self):
