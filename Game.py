@@ -9,7 +9,7 @@ class Game:
 
     def __init__(self):
         #define if the game is started or not 
-        self.is_playing = False
+        self.is_playing = True
         #player status
         #self.is_playing = False
         # generate a player
@@ -24,9 +24,10 @@ class Game:
         # groupe de monstre
         self.all_monsters = pygame.sprite.Group()
         self.spawn_monster()
+        self.monster = Monster(self)
         #comet
         self.comet_event = CometFallEvent(self)
-
+        self.enVie = "first"
         self.gameover = False
     
     def check_collision(self, sprite, group):
@@ -38,14 +39,19 @@ class Game:
             self.spawn_fruit()
 
     def game_over(self):
-        self.gameover = True
-        self.all_fruits = pygame.sprite.Group()
-        self.player.healthbar = False
-        self.player.mouvement = False
-        self.highScore(self.score) 
-        self.player.rect.x = 70
-        self.player.rect.y = 550
-        self.player.affichage = True
+        if self.enVie == "first":
+            self.enVie = "second"
+            self.player.health = self.player.max_health
+        elif self.enVie == "second":
+            self.monster.monstermouvement = False
+            self.gameover = True
+            self.all_fruits = pygame.sprite.Group()
+            self.player.healthbar = False
+            self.player.mouvement = False
+            self.highScore(self.score) 
+            self.player.rect.x = 70
+            self.player.rect.y = 550
+            self.player.affichage = True
         
 
 

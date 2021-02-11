@@ -13,13 +13,15 @@ class Monster(animateMonster.AnimateMonsterSprite):
         self.rect = self.image.get_rect()
         self.rect.x = 900 + random.randint(0, 200)
         self.rect.y = 560
-        self.velocity = random.randint(2,5)
+        self.velocity = random.randint(3,5)
         self.nb = 10
+        self.monstermouvement = True
 
     def damage(self, amount):
         self.health -= amount
-
+        
         if self.health <= 0:
+
             self.nb -= 1
             self.attack += 0.2
             # réapparaitre le meme monstre
@@ -56,16 +58,17 @@ class Monster(animateMonster.AnimateMonsterSprite):
 
     def forward(self):
 
-        if not self.game.check_collision(self, self.game.all_players):
-            self.rect.x -= self.velocity
-        # monstre colision avec le joueur
+        if self.monstermouvement == True: 
+                
+            if not self.game.check_collision(self, self.game.all_players):
+                self.rect.x -= self.velocity
+            # monstre colision avec le joueur
+            else:
+                self.game.player.damage(self.attack)
+        
+        elif self.monstermouvement == False:
+            self.rect.x = 1000
 
-        else:
-            self.game.player.damage(self.attack)
 
-    def remisZero(self):
-        self.rect.y = 560
-        self.max_health = 110
-        self.health = 110
-        self.nb = 10
-        self.attack = 0.2
+
+
