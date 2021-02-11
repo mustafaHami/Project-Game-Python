@@ -108,17 +108,17 @@ def tutorial():
     inst.grid(row=0,column=0,sticky=W) 
     inst2 = Label(tuto_window,text="Avoid the cursed purple fruits, they reduce your sleep bar !",font=("Courrier",15), bg = "#008000",fg="black")
     inst2.grid(row=1,column=0,sticky=W) 
-    inst3 = Label(tuto_window,text="Collect the normal fruits to increase your score and your life !",font=("Courrier",15), bg = "#008000",fg="black")
+    inst3 = Label(tuto_window,text="Collect the normal fruits and vegetables to increase your score and your sleep bar !",font=("Courrier",15), bg = "#008000",fg="black")
     inst3.grid(row=2,column=0,sticky=W) 
     inst4 = Label(tuto_window,text="If your sleep bar is empty, you will fall asleep",font=("Courrier",15), bg = "#008000",fg="black")
     inst4.grid(row=3,column=0,sticky=W) 
     inst5 = Label(tuto_window,text="You need to face the monsters of your nightmare to wake up and continue your escape",font=("Courrier",15), bg = "#008000",fg="black")
     inst5.grid(row=4,column=0,sticky=W)
-    inst6 = Label(tuto_window,text="If you fail you die",font=("Courrier",15), bg = "#008000",fg="black")
+    inst6 = Label(tuto_window,text="If you fail, you die",font=("Courrier",15), bg = "#008000",fg="black")
     inst6.grid(row=5,column=0,sticky=W) 
     inst7 = Label(tuto_window,text="You can move left or right with directionnal buttons",font=("Courrier",15), bg = "#008000",fg="black")
     inst7.grid(row=6,column=0,sticky=W)
-    inst8 = Label(tuto_window,text="Jump with the space bar or up button",font=("Courrier",15), bg = "#008000",fg="black")
+    inst8 = Label(tuto_window,text="Jump with the space bar or up button, and shoot with the space bar when you're asleep",font=("Courrier",15), bg = "#008000",fg="black")
     inst8.grid(row=7,column=0,sticky=W)
 
 
@@ -445,7 +445,7 @@ if game.is_playing == True:
                         game.game_over = False 
         
         pygame.display.update()
-
+        FramePerSec.tick(FPS)
 
 
 
