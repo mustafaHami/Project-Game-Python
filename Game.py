@@ -61,4 +61,12 @@ class Game:
         file.close()
         highest_score = tabline[1]
         return highest_score 
+    
+    def getTopTen(self):
+            file = open("scores.txt",'r')
+        line = file.readline()
+        tabline = line.split(' ')
+        file.close()
+        highest_score = tabline[1]
+        return highest_score 
        

@@ -1,1 +1,5 @@
 Zizou 15 
+Kaan 2
+Mustafa 150
+Ayache 1000
+Boubou 30
