@@ -1,7 +1,6 @@
 import pygame, sys
 from Player import Player
 from Fruits import Fruits
-DISPLAYSURF = pygame.display.set_mode((1024, 768))
 
 class Game:
 

@@ -65,7 +65,7 @@ back_ground = Background()
 def rungame():
     if len(name_entry.get()) != 0:
         window.destroy()
-        game.is_playing = True
+        game.start()
 
 def tutorial():
     tuto_window = Tk()
@@ -79,7 +79,7 @@ def tutorial():
 window = Tk()
 
 #Menu 
-window.title("Forescape")
+window.title("Forescape Main Menu")
 window.geometry("1024x768")
 window.config(background ="#97CE68")
 
@@ -127,6 +127,7 @@ while True:
 
     game.player.update_animation()
     game.player.start_animation()
+    P1.damage(0.01)
 
     # Every game events
     for event in pygame.event.get():
