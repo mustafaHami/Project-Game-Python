@@ -1,4 +1,5 @@
 import pygame, sys
+import os 
 from pygame.locals import *
 from Game import Game
 import time
@@ -30,12 +31,6 @@ game_over = font.render("Game Over", True, BLACK)
 DISPLAYSURF = pygame.display.set_mode((1024, 768))
 DISPLAYSURF.fill(WHITE)
 pygame.display.set_caption("Forescape")
-
-game_finish = pygame.image.load('images/background.jpg')
-game_finish = pygame.transform.scale(game_finish,(1024,768))
-logo = pygame.image.load('images/logo_size.png')
-over = pygame.image.load('images/game-over.png')
-over = pygame.transform.scale(over,(400,300))
 
 
 class Background():
@@ -117,7 +112,7 @@ def tutorial():
 window = Tk()
 
 #Menu 
-window.title("Forescape")
+window.title("Forescape Main Menu")
 window.geometry("1024x768")
 window.config(background ="#97CE68")
 
@@ -173,7 +168,7 @@ if game.is_playing == True:
             game.player.update_animation()
             game.player.start_animation()
 
-            # Every game events
+             # Every game events
             for event in pygame.event.get():
                 if event.type == INC_SPEED:
                     SPEED += 0.5
@@ -200,7 +195,6 @@ if game.is_playing == True:
             # Add fruits
             game.all_fruits.draw(DISPLAYSURF)
             # Moves and Re-draws
-
             for entity in all_sprites:
                 DISPLAYSURF.blit(entity.image, entity.rect)
                 entity.move()
@@ -208,12 +202,21 @@ if game.is_playing == True:
             #Health Bar
             game.player.update_health_bar(DISPLAYSURF)
 
-
+            #/////Dans la versione précedent il n' avais pas ces 4 lignes 
             for fruits in game.all_fruits:
                 fruits.forward()
                 game.update(DISPLAYSURF)
                 pygame.display.update()
 
+             # To be run if collision occurs between Player and Enemy
+            if pygame.sprite.spritecollideany(P1, enemies):
+                time.sleep(0.8)
+
+            for fruits in game.all_fruits:
+                fruits.forward()
+                game.update(DISPLAYSURF)
+                pygame.display.update()
+            #dans une autre version il n'y a pas le if 
             # To be run if collision occurs between Player and Enemy
             if pygame.sprite.spritecollideany(P1, enemies):
                 time.sleep(0.8)
@@ -229,13 +232,79 @@ if game.is_playing == True:
                 sys.exit()
 
 
-
             FramePerSec.tick(FPS)
-        else:
+
+        else:   
             for event in pygame.event.get():
+
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+        if game.gameover == True:
+            Police1 = pygame.font.Font("Fonts/Eczar-ExtraBold.ttf", 110)
+            Police2 = pygame.font.Font("Fonts/Eczar-SemiBold.ttf", 50)
+            Gameover = Police1.render("GAME OVER ", 0, (0,0,0)) 
+            YourScore = Police2.render("YOUR SCORE", 1,(255,100,100))
+            HighScore = Police2.render("HIGHSCORE" ,1,(255,100,100))
+            Score1 = Police2.render(str(game.score),1,(255,100,100))
+            retry_button = pygame.image.load('images/refresh.png')
+            retry_button = pygame.transform.scale(retry_button, (100, 100))
+            retry_button_rect = retry_button.get_rect()
+            if os.path.exists("scores.txt"):
+                if os.path.getsize("scores.txt") == 0:
+                    file = open("scores.txt","w")
+                    file.write(game.player.name)
+                    file.write(' ')
+                    file.write(str(game.score))
+                    file.write('\n')
+                    file.close()
+                    file = open("scores.txt",'r')
+                    line = file.readline()
+                    tabline = line.split(' ')
+                    file.close()
+                    highest_score = tabline[1]
+                    Score2 = Police2.render(str(int(highest_score)),1,(255,100,100))
+                else:
+                    file = open("scores.txt",'r')
+                    line = file.readline()
+                    tabline = line.split(' ')
+                    file.close()
+                    highest_score = tabline[1]
+                    Score2 = Police2.render(str(int(highest_score)),1,(255,100,100))
+                    if game.score > int(highest_score):
+                        Score2 = Police2.render(str(game.score),1,(255,100,100))
+                        file = open("scores.txt","w")
+                        file.write(game.player.name)
+                        file.write(' ')
+                        file.write(str(game.score))
+                        file.write('\n')
+                        file.close()
         
-        pygame.display.update()
+            else:
+                file = open("scores.txt","w")
+                file.write(game.player.name)
+                file.write(' ')
+                file.write(str(game.score))
+                file.write('\n')
+                file.close()
+            DISPLAYSURF.blit(Gameover, (190, 50))
+            DISPLAYSURF.blit(YourScore, (100,225))
+            DISPLAYSURF.blit(Score1, (200,300))
+            DISPLAYSURF.blit(HighScore,(625,225))
+            DISPLAYSURF.blit(Score2, (725,300))
+            DISPLAYSURF.blit(retry_button,(190,500))
+            pygame.display.update()  
+            for event in pygame.event.get():
+    
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if retry_button_rect.collidepoint(event.pos):
+                        game.is_playing = True
+                        game.game_over = False 
+
+
+        pygame.display.update()   
+   
         
