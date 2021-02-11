@@ -24,10 +24,11 @@ class Player(animation.AnimateSprite):
         self.game = game
         self.mouvement = True
         self.name = '' 
-
+        self.gameover = False
 
     def projectile(self):
-        self.all_projectile.add(Projectile(self))
+        if self.gameover == False:
+            self.all_projectile.add(Projectile(self))
 
     def damage(self, amount):
         if self.health > amount:

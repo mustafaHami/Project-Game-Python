@@ -361,7 +361,7 @@ if game.is_playing == True:
                 monster.update_health_bar(DISPLAYSURF)
                 monster.update_animation()
                 DISPLAYSURF.blit(font.render(str(monster.nbKill()), True, WHITE), (20, 350))
-                if monster.nbKill() == 0:
+                if monster.nbKill() == 0 and game.game_over == False:
                     pygame.mixer.music.set_volume(0)
                     DISPLAYSURF.fill(BLACK)
                     DISPLAYSURF.blit(

@@ -15,11 +15,10 @@ class Projectile(pygame.sprite.Sprite):
         self.image = pygame.image.load("images/" + random.choice(eat) + ".png")
         self.image = pygame.transform.scale(self.image,(50,50))
         self.rect = self.image.get_rect()
-        self.rect.x = player.rect.x + 60
-        self.rect.y = player.rect.y + 40
+        self.rect.x = self.player.rect.x + 60
+        self.rect.y = self.player.rect.y + 40
         self.origin_image = self.image
         self.angle = 0
-
 
     def rotate(self):
         self.angle += 10
@@ -29,7 +28,7 @@ class Projectile(pygame.sprite.Sprite):
     def remove(self):
         self.player.all_projectile.remove(self)
 
-    def move(self):
+    def move(self):    
         self.rect.x += self.velocity
         self.rotate()
 

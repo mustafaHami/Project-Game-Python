@@ -45,6 +45,7 @@ class Game:
         elif self.enVie == "second":
             self.monster.monstermouvement = False
             self.gameover = True
+            self.player.gameover=True
             self.all_fruits = pygame.sprite.Group()
             self.player.healthbar = False
             self.player.mouvement = False
