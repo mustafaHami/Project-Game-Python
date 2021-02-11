@@ -1,9 +1,1 @@
-<<<<<<< HEAD
-Zizou 15 
-Kaan 2
-Mustafa 150
-Ayache 1000
-Boubou 30
-=======
-jkkk 330
->>>>>>> c22fa1bfc377d5d9a1fce153c74d45391698c351
+zda 223 
