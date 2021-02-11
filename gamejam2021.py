@@ -45,7 +45,7 @@ class Background():
         self.bgY2 = 0
         self.bgX2 = self.rectBGimg.width
 
-        self.moving_speed = 5           
+        self.moving_speed = 7           
 
     def update(self):
         self.bgX1 -= self.moving_speed
@@ -285,7 +285,7 @@ if game.is_playing == True:
             YourScore = Police2.render("YOUR SCORE", 1,(255,100,100))
             Player_name = Police2.render(P1.name,1,(255,50,50))
             HighScore = Police2.render("HIGHEST SCORE" ,1,(255,100,100))
-            Score1 = Police2.render(str(game.score),1,(255,100,100))
+            Score1 = Police2.render(str(game.score),1,(255,50,50))
             retry_button = pygame.image.load('images/refresh.png')
             retry_button = pygame.transform.scale(retry_button, (100, 100))
             retry_button_rect = retry_button.get_rect()
@@ -331,15 +331,16 @@ if game.is_playing == True:
                 file.write(game.player.name)
                 file.write(' ')
                 file.write(str(game.score))
+                file.write(' ')
                 file.write('\n')
                 file.close()
             DISPLAYSURF.blit(Gameover, (190, 50))
             DISPLAYSURF.blit(YourScore, (100,225))
             DISPLAYSURF.blit(Player_name,(100,300))
-            DISPLAYSURF.blit(Score1, (225,350))
+            DISPLAYSURF.blit(Score1, (100,350))
             DISPLAYSURF.blit(HighScore,(625,225))
             DISPLAYSURF.blit(name2, (625,300))
-            DISPLAYSURF.blit(Score2, (725,350))
+            DISPLAYSURF.blit(Score2, (625,350))
             DISPLAYSURF.blit(retry_button,(190,500))
             pygame.display.update()  
             for event in pygame.event.get():
