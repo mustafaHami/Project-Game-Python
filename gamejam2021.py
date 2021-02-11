@@ -222,6 +222,7 @@ if game.is_playing == True:
             if jump == True and saut >= -20:
                 saut -= 1
                 P1.jumpy(saut)
+                game.player.stop_animation()
 
             if saut == -19:
                 saut = 20
@@ -241,7 +242,7 @@ if game.is_playing == True:
             #Health Bar
             game.player.update_health_bar(DISPLAYSURF)
 
-
+            #/////Dans la versione précedent il n' avais pas ces 4 lignes 
             for fruits in game.all_fruits:
                 fruits.forward()
                 game.update(DISPLAYSURF)
@@ -251,6 +252,17 @@ if game.is_playing == True:
             if pygame.sprite.spritecollideany(P1, enemies):
                 time.sleep(0.8)
 
+            for fruits in game.all_fruits:
+                fruits.forward()
+                game.update(DISPLAYSURF)
+                pygame.display.update()
+            #dans une autre version il n'y a pas le if 
+            # To be run if collision occurs between Player and Enemy
+            if pygame.sprite.spritecollideany(P1, enemies):
+                time.sleep(0.8)
+
+                DISPLAYSURF.fill(RED)
+                DISPLAYSURF.blit(game_over, (30, 250))
 
                 pygame.display.update()
                 for entity in all_sprites:
@@ -258,15 +270,9 @@ if game.is_playing == True:
                 time.sleep(1.5)
                 pygame.quit()
                 sys.exit()
-
-
-
-            
             FramePerSec.tick(FPS)
 
         else:   
-         
-            
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
@@ -276,15 +282,20 @@ if game.is_playing == True:
             Police1 = pygame.font.Font("Fonts/Eczar-ExtraBold.ttf", 110)
             Police2 = pygame.font.Font("Fonts/Eczar-SemiBold.ttf", 50)
             Gameover = Police1.render("GAME OVER ", 0, (0,0,0)) 
-            YourScore = Police2.render("YOUR SCORE", 1,(255,0,0))
-            HighScore = Police2.render("BEST SCORE" ,1,(255,0,0))
-            Score1 = Police2.render(str(game.score),1,(255,50,50))
+            YourScore = Police2.render("YOUR SCORE", 1,(255,100,100))
+            Player_name = Police2.render(P1.name,1,(255,50,50))
+            HighScore = Police2.render("HIGHEST SCORE" ,1,(255,100,100))
+            Score1 = Police2.render(str(game.score),1,(255,100,100))
+            retry_button = pygame.image.load('images/refresh.png')
+            retry_button = pygame.transform.scale(retry_button, (100, 100))
+            retry_button_rect = retry_button.get_rect()
             if os.path.exists("scores.txt"):
                 if os.path.getsize("scores.txt") == 0:
                     file = open("scores.txt","w")
                     file.write(game.player.name)
                     file.write(' ')
                     file.write(str(game.score))
+                    file.write(' ')
                     file.write('\n')
                     file.close()
                     file = open("scores.txt",'r')
@@ -303,7 +314,7 @@ if game.is_playing == True:
                     name = tabline[0]
                     highest_score = tabline[1]
                     name2 = Police2.render(name,1,(255,50,50))
-                    Score2 = Police2.render(str(int(highest_score)),1,(255,50,50))
+                    Score2 = Police2.render(highest_score,1,(255,50,50))
                     if game.score > int(highest_score):
                         Score2 = Police2.render(str(game.score),1,(255,50,50))
                         name2 = Police2.render(name,1,(255,50,50))
@@ -311,6 +322,7 @@ if game.is_playing == True:
                         file.write(game.player.name)
                         file.write(' ')
                         file.write(str(game.score))
+                        file.write(' ')
                         file.write('\n')
                         file.close()
         
@@ -323,9 +335,24 @@ if game.is_playing == True:
                 file.close()
             DISPLAYSURF.blit(Gameover, (190, 50))
             DISPLAYSURF.blit(YourScore, (100,225))
-            DISPLAYSURF.blit(Score1, (225,300))
+            DISPLAYSURF.blit(Player_name,(100,300))
+            DISPLAYSURF.blit(Score1, (225,350))
             DISPLAYSURF.blit(HighScore,(625,225))
             DISPLAYSURF.blit(name2, (625,300))
-            DISPLAYSURF.blit(Score2, (625,365))
-            pygame.display.update()
-        pygame.display.update()
+            DISPLAYSURF.blit(Score2, (725,350))
+            DISPLAYSURF.blit(retry_button,(190,500))
+            pygame.display.update()  
+            for event in pygame.event.get():
+    
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if retry_button_rect.collidepoint(event.pos):
+                        game.is_playing = True
+                        game.game_over = False 
+
+
+        pygame.display.update()   
+   
+        
