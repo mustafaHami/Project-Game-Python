@@ -1,4 +1,5 @@
 from pygame.locals import *
+from projectile import Projectile
 import time
 import pygame
 import animation
@@ -9,14 +10,19 @@ class Player(animation.AnimateSprite):
 
     def __init__(self, game):
         super().__init__("ArmatureWalk")
+        self.game = game
         self.health = 100
         self.max_health = 100
         self.attack = 10
         self.velocity = 5
+        self.all_projectile = pygame.sprite.Group()
         self.jump = 5
         self.rect = self.image.get_rect()
         self.rect.x = 70
         self.rect.y = 550
+
+    def projectile(self):
+        self.all_projectile.add(Projectile(self))
 
     def damage(self, amount):
         self.health -= amount
@@ -33,11 +39,17 @@ class Player(animation.AnimateSprite):
         pygame.draw.rect(surface,((100 - self.health) * 255 / 100, self.health* 255 / 100 ,0),[10,10,self.health * 5,20])
 
 
-    def move_right(self):
-        if not self.game.check_collision(self, self.game.all_fruits):
-            self.rect.x += self.velocity
-        for fruit in self.player.game.check_collision(self, self.player.game.all_fruits):
-            fruit.damage(10)
+    def moveforSecondWorld(self):
+        pressed_keys = pygame.key.get_pressed()
+        if not self.game.check_collision(self, self.game.all_monsters):
+            if self.rect.right < 1024:
+                if pressed_keys[K_RIGHT] or pressed_keys[K_d]:
+                    self.rect.move_ip(9, 0)
+
+        if self.rect.left > 0:
+            if pressed_keys[K_LEFT] or pressed_keys[K_q]:
+                self.rect.move_ip(-9, 0)
+
 
 
     def move(self):
