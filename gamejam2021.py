@@ -390,8 +390,8 @@ if game.is_playing == True:
                         DISPLAYSURF.blit(entity.image, entity.rect)
                         entity.moveforSecondWorld()
                     game.player.update_health_bar(DISPLAYSURF)
-
-        if game.gameover == True:
+ 
+        elif game.gameover == True:
             Police1 = pygame.font.Font("Fonts/Eczar-ExtraBold.ttf", 110)
             Police2 = pygame.font.Font("Fonts/Eczar-SemiBold.ttf", 50)
             Gameover = Police1.render("GAME OVER ", 0, (0,0,0))

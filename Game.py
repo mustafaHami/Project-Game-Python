@@ -63,7 +63,7 @@ class Game:
             self.all_fruits = pygame.sprite.Group()
             self.player.healthbar = False
             self.player.mouvement = False
-            self.highScore(self.score) 
+            #self.highScore(self.score) 
             self.player.rect.x = 70
             self.player.rect.y = 550
             self.player.affichage = True
@@ -126,11 +126,13 @@ class Game:
                 file.write(top_ten)
                 file.write(' ')
                 file.write('\n')
-    def highScore(self, score):
-        for i in self.highest_score:
-            if score > i:
-                self.highest_score.insert(0,score)
-                break
+
+
+    # def highScore(self, score):
+    #     for i in self.highest_score:
+    #         if score > i:
+    #             self.highest_score.insert(0,score)
+    #             break
             
 
     # monster
