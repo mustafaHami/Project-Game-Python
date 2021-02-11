@@ -16,6 +16,7 @@ class Game:
         #generate fruits
         self.all_fruits = pygame.sprite.Group()
         self.pressed = {}
+        self.gameover = False
     
     def check_collision(self, sprite, group):
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
@@ -26,11 +27,16 @@ class Game:
             self.spawn_fruit()
 
     def game_over(self):
+        self.gameover = True
         self.all_fruits = pygame.sprite.Group()
-        self.player.health = self.player.max_health
-        self.is_playing = False
-        print("Game Over !")
-        self.highScore(self.score)
+        self.player.healthbar = False
+        self.player.mouvement = False
+        self.highScore(self.score) 
+        self.player.rect.x = 70
+        self.player.rect.y = 550
+        self.player.affichage = True
+        
+
 
     def update(self, screen):
         Police = pygame.font.Font("Fonts/bold_game_font_7.ttf", 40)
@@ -46,4 +52,13 @@ class Game:
             if score > i:
                 self.highest_score.insert(0,score)
                 break
+    
+        
+    def getHighestScore(self):
+        file = open("scores.txt",'r')
+        line = file.readline()
+        tabline = line.split(' ')
+        file.close()
+        highest_score = tabline[1]
+        return highest_score 
        
