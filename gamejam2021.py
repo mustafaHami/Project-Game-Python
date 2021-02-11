@@ -86,10 +86,13 @@ def tutorial():
     inst4.grid(row=3,column=0,sticky=W) 
     inst5 = Label(tuto_window,text="You need to face the monsters of your nightmare to wake up and continue your escape",font=("Courrier",15), bg = "#008000",fg="black")
     inst5.grid(row=4,column=0,sticky=W)
-    
-    
     inst6 = Label(tuto_window,text="If you fail you die",font=("Courrier",15), bg = "#008000",fg="black")
     inst6.grid(row=5,column=0,sticky=W) 
+    inst7 = Label(tuto_window,text="You can move left or right with directionnal buttons",font=("Courrier",15), bg = "#008000",fg="black")
+    inst7.grid(row=6,column=0,sticky=W)
+    inst8 = Label(tuto_window,text="Jump with the space bar or up button",font=("Courrier",15), bg = "#008000",fg="black")
+    inst8.grid(row=7,column=0,sticky=W)
+
 
     widthe = 100
     heighte = 100 
@@ -97,14 +100,36 @@ def tutorial():
     canvas2 = Canvas(tuto_window, width=widthe, height=heighte)
     canvas2.create_image(widthe/2,heighte/2,image=image2)
     canvas2.grid(row=1,column=1,sticky=W)
+
     image3 = PhotoImage(file="images/banana.png")
     canvas3 = Canvas(tuto_window, width=widthe, height=heighte)
     canvas3.create_image(widthe/2,heighte/2,image=image3)
     canvas3.grid(row=2,column=1,sticky=W)
+
     image4 = PhotoImage(file="images/life_bar.PNG")
     canvas4 = Canvas(tuto_window, width=widthe, height=heighte)
     canvas4.create_image(widthe/2,heighte/2,image=image4)
     canvas4.grid(row=3,column=1,sticky=W)
+
+    image5 = PhotoImage(file="images/left_button.png")
+    canvas5 = Canvas(tuto_window, width=widthe, height=heighte)
+    canvas5.create_image(widthe/2,heighte/2,image=image5)
+    canvas5.grid(row=6,column=1,sticky=W)
+
+    image6 = PhotoImage(file="images/right_button.png")
+    canvas6 = Canvas(tuto_window, width=widthe, height=heighte)
+    canvas6.create_image(widthe/2,heighte/2,image=image6)
+    canvas6.grid(row=6,column=2,sticky=W)
+
+    image7 = PhotoImage(file="images/up_button.png")
+    canvas7 = Canvas(tuto_window, width=widthe, height=heighte)
+    canvas7.create_image(widthe/2,heighte/2,image=image7)
+    canvas7.grid(row=7,column=1,sticky=W)
+
+    image8 = PhotoImage(file="images/imageonline-co-resizedimage.png")
+    canvas8 = Canvas(tuto_window, width=widthe, height=heighte)
+    canvas8.create_image(widthe/2,heighte/2,image=image8)
+    canvas8.grid(row=7,column=2,sticky=W)
     
     tuto_window.mainloop()
 
@@ -167,7 +192,6 @@ label_title = Label(frame,text="Name ",font=("Courrier",40), bg = "#008000",fg="
 label_title.grid(row=1,column=0,sticky=W)
 name_entry = Entry(frame,font=("Courrier",40), bg = "white",fg="black")
 name_entry.grid(row=1,column=1,sticky=W)
-print(name_entry.get()) 
 
 frame.pack(expand=YES)
 #addign a button 
