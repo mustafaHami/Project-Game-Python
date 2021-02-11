@@ -281,7 +281,6 @@ if game.is_playing == True:
         if game.gameover == True:
             Police1 = pygame.font.Font("Fonts/Eczar-ExtraBold.ttf", 110)
             Police2 = pygame.font.Font("Fonts/Eczar-SemiBold.ttf", 50)
-            Police2 = pygame.font.Font.set_bold()
             Gameover = Police1.render("GAME OVER ", 0, (0,0,0)) 
             YourScore = Police2.render("YOUR SCORE", 1,(255,100,100))
             HighScore = Police2.render("HIGH SCORE" ,1,(255,100,100))
