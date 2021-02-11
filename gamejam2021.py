@@ -202,8 +202,6 @@ play_button.pack(fill=X)
 play_button = Button(window,text="Credits",font=("Courrier",40), bg = "white",fg="green",command=credits)
 play_button.pack(fill=X)
 
-
-
 window.mainloop()
 #/////////////////////////////MENU WINDOW//////////////////////////////////////////////////////////
 
@@ -305,66 +303,45 @@ if game.is_playing == True:
         if game.gameover == True:
             Police1 = pygame.font.Font("Fonts/Eczar-ExtraBold.ttf", 110)
             Police2 = pygame.font.Font("Fonts/Eczar-SemiBold.ttf", 50)
-            Police2 = pygame.font.Font.set_bold()
             Gameover = Police1.render("GAME OVER ", 0, (0,0,0)) 
             YourScore = Police2.render("YOUR SCORE", 1,(255,100,100))
-            HighScore = Police2.render("HIGH SCORE" ,1,(255,100,100))
+            HighScore = Police2.render("HIGHEST SCORE" ,1,(255,100,100))
             NameScore1 = Police2.render(P1.name + "  " + str(game.score),1,(255,50,50))
             retry_button = pygame.image.load('images/refresh.png')
             retry_button = pygame.transform.scale(retry_button, (100, 100))
             retry_button_rect = retry_button.get_rect()
-            
-            
-            if os.path.exists("scores.txt"):
-                if os.path.getsize("scores.txt") == 0:
-                    file = open("scores.txt","w")
-                    file.write(game.player.name)
-                    file.write(' ')
-                    file.write(str(game.score))
-                    file.write(' ')
-                    file.write('\n')
-                    file.close()
-                    file = open("scores.txt",'r')
-                    line = file.readline()
-                    tabline = line.split(' ')
-                    file.close()
-                    name = tabline[0]
-                    highest_score = tabline[1]
-                    Score2 = Police2.render(name + "  " + str(int(highest_score)),1,(255,50,50))
-                else:
-                    file = open("scores.txt",'r')
-                    line = file.readline()
-                    tabline = line.split(' ')
-                    file.close()
-                    name = tabline[0]
-                    highest_score = tabline[1]
-                    NameScore2 = Police2.render(name + "  " + highest_score,1,(255,50,50))
-                    if game.score > int(highest_score):
-                        Score2 = Police2.render(name + "  " + str(game.score),1,(255,50,50))
-                        file = open("scores.txt","w")
-                        file.write(game.player.name)
-                        file.write(' ')
-                        file.write(str(game.score))
-                        file.write(' ')
-                        file.write('\n')
-                        file.close()
-        
-            else:
-                file = open("scores.txt","w")
-                file.write(game.player.name)
-                file.write(' ')
-                file.write(str(game.score))
-                file.write(' ')
-                file.write('\n')
-                NameScore2 = Police2.render(game.player.name + "  " + str(game.score),1,(255,50,50))
-                file.close()
+            Ranking = Police2.render("TOP 10",1,(0,0,0))
+
+            #I set the list from the file 
+            rep = game.setListFromFile()
+            #add the new score to the list 
+            game.list_players.update({P1.name : game.score})
+            #set the file with the list with my score within 
+            game.setFileFromList()
+            #get the the top ten 
+            #getTopTen uses set ListfromFile before 
+            top_ten = game.getTopTen()
+            #init the element to display (classement)
+            elem_list = game.initElem()
+            #get the max score 
+            max_score = game.getMaxTopTen()
+            NameScore2 = Police2.render(max_score,1,(255,50,50))
 
             DISPLAYSURF.blit(Gameover, (190, 50))
-            DISPLAYSURF.blit(YourScore, (100,225))
-            DISPLAYSURF.blit(NameScore1, (125,350))
-            DISPLAYSURF.blit(HighScore,(625,225))
-            DISPLAYSURF.blit(NameScore2, (650,350))
+            DISPLAYSURF.blit(YourScore, (100,200))
+            DISPLAYSURF.blit(NameScore1, (125,250))
+            DISPLAYSURF.blit(HighScore,(625,200))
+            DISPLAYSURF.blit(NameScore2, (650,250))
             DISPLAYSURF.blit(retry_button,(190,500))
+            DISPLAYSURF.blit(Ranking,(300,370))
+            posx = 300
+            posy = 450
+            i=0
+            while i<len(elem_list):
+                DISPLAYSURF.blit(elem_list[i],(posx,posy))
+                posy +=30
+                i+=1
+
             pygame.display.update()  
             for event in pygame.event.get():
     
