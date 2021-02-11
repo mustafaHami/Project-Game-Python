@@ -283,12 +283,13 @@ if game.is_playing == True:
             Police2 = pygame.font.Font("Fonts/Eczar-SemiBold.ttf", 50)
             Gameover = Police1.render("GAME OVER ", 0, (0,0,0)) 
             YourScore = Police2.render("YOUR SCORE", 1,(255,100,100))
-            Player_name = Police2.render(P1.name,1,(255,50,50))
-            HighScore = Police2.render("HIGHEST SCORE" ,1,(255,100,100))
-            Score1 = Police2.render(str(game.score),1,(255,50,50))
+            HighScore = Police2.render("HIGH SCORE" ,1,(255,100,100))
+            NameScore1 = Police2.render(P1.name + "  " + str(game.score),1,(255,50,50))
             retry_button = pygame.image.load('images/refresh.png')
             retry_button = pygame.transform.scale(retry_button, (100, 100))
             retry_button_rect = retry_button.get_rect()
+            
+            
             if os.path.exists("scores.txt"):
                 if os.path.getsize("scores.txt") == 0:
                     file = open("scores.txt","w")
@@ -304,8 +305,7 @@ if game.is_playing == True:
                     file.close()
                     name = tabline[0]
                     highest_score = tabline[1]
-                    name2 = Police2.render(name,1,(255,50,50))
-                    Score2 = Police2.render(str(int(highest_score)),1,(255,50,50))
+                    Score2 = Police2.render(name + "  " + str(int(highest_score)),1,(255,50,50))
                 else:
                     file = open("scores.txt",'r')
                     line = file.readline()
@@ -313,11 +313,9 @@ if game.is_playing == True:
                     file.close()
                     name = tabline[0]
                     highest_score = tabline[1]
-                    name2 = Police2.render(name,1,(255,50,50))
-                    Score2 = Police2.render(highest_score,1,(255,50,50))
+                    NameScore2 = Police2.render(name + "  " + highest_score,1,(255,50,50))
                     if game.score > int(highest_score):
-                        Score2 = Police2.render(str(game.score),1,(255,50,50))
-                        name2 = Police2.render(name,1,(255,50,50))
+                        Score2 = Police2.render(name + "  " + str(game.score),1,(255,50,50))
                         file = open("scores.txt","w")
                         file.write(game.player.name)
                         file.write(' ')
@@ -333,14 +331,14 @@ if game.is_playing == True:
                 file.write(str(game.score))
                 file.write(' ')
                 file.write('\n')
+                NameScore2 = Police2.render(game.player.name + "  " + str(game.score),1,(255,50,50))
                 file.close()
+
             DISPLAYSURF.blit(Gameover, (190, 50))
             DISPLAYSURF.blit(YourScore, (100,225))
-            DISPLAYSURF.blit(Player_name,(100,300))
-            DISPLAYSURF.blit(Score1, (100,350))
+            DISPLAYSURF.blit(NameScore1, (125,350))
             DISPLAYSURF.blit(HighScore,(625,225))
-            DISPLAYSURF.blit(name2, (625,300))
-            DISPLAYSURF.blit(Score2, (625,350))
+            DISPLAYSURF.blit(NameScore2, (650,350))
             DISPLAYSURF.blit(retry_button,(190,500))
             pygame.display.update()  
             for event in pygame.event.get():
