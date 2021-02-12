@@ -108,17 +108,17 @@ def rungame():
     inst.grid(row=0,column=0,sticky=W) 
     inst2 = Label(tuto_window,text="Avoid the cursed purple fruits, they reduce your sleep bar !",font=("Courrier",15), bg = "#008000",fg="black")
     inst2.grid(row=1,column=0,sticky=W) 
-    inst3 = Label(tuto_window,text="Collect the normal fruits to increase your score and your life !",font=("Courrier",15), bg = "#008000",fg="black")
+    inst3 = Label(tuto_window,text="Collect the normal fruits and vegetables to increase your score and your sleep bar !",font=("Courrier",15), bg = "#008000",fg="black")
     inst3.grid(row=2,column=0,sticky=W) 
     inst4 = Label(tuto_window,text="If your sleep bar is empty, you will fall asleep",font=("Courrier",15), bg = "#008000",fg="black")
     inst4.grid(row=3,column=0,sticky=W) 
     inst5 = Label(tuto_window,text="You need to face the monsters of your nightmare to wake up and continue your escape",font=("Courrier",15), bg = "#008000",fg="black")
     inst5.grid(row=4,column=0,sticky=W)
-    inst6 = Label(tuto_window,text="If you fail you die",font=("Courrier",15), bg = "#008000",fg="black")
+    inst6 = Label(tuto_window,text="If you fail, you die",font=("Courrier",15), bg = "#008000",fg="black")
     inst6.grid(row=5,column=0,sticky=W) 
     inst7 = Label(tuto_window,text="You can move left or right with directionnal buttons",font=("Courrier",15), bg = "#008000",fg="black")
     inst7.grid(row=6,column=0,sticky=W)
-    inst8 = Label(tuto_window,text="Jump with the space bar or up button",font=("Courrier",15), bg = "#008000",fg="black")
+    inst8 = Label(tuto_window,text="Jump with the space bar or up button, and shoot with the space bar when you're asleep",font=("Courrier",15), bg = "#008000",fg="black")
     inst8.grid(row=7,column=0,sticky=W)
 
 
@@ -257,7 +257,7 @@ if game.is_playing == True:
         if game.enVie == 'first':
             game.player.update_animation()
             game.player.start_animation()
-            P1.damage(0.01)
+            P1.damage(2)
                 # Every game events
             for event in pygame.event.get():
                 if event.type == INC_SPEED:
@@ -412,70 +412,62 @@ if game.is_playing == True:
                         DISPLAYSURF.blit(entity.image, entity.rect)
                         entity.moveforSecondWorld()
                     game.player.update_health_bar(DISPLAYSURF)
-
-        if game.gameover == True:
+ 
+        elif game.gameover == True:
             Police1 = pygame.font.Font("Fonts/Eczar-ExtraBold.ttf", 110)
             Police2 = pygame.font.Font("Fonts/Eczar-SemiBold.ttf", 50)
             Gameover = Police1.render("GAME OVER ", 0, (0,0,0))
             YourScore = Police2.render("YOUR SCORE", 1,(255,100,100))
-            HighScore = Police2.render("HIGH SCORE" ,1,(255,100,100))
+            HighScore = Police2.render("HIGHEST SCORE" ,1,(255,100,100))
             NameScore1 = Police2.render(P1.name + "  " + str(game.score),1,(255,50,50))
             retry_button = pygame.image.load('images/refresh.png')
             retry_button = pygame.transform.scale(retry_button, (100, 100))
             retry_button_rect = retry_button.get_rect()
+            Ranking = Police2.render("TOP 10",1,(0,0,0))
 
+            #I set the list from the file 
+            rep = game.setListFromFile()
+            #add the new score to the list 
+            game.list_players.update({P1.name : game.score})
+            #set the file with the list with my score within 
+            game.setFileFromList()
+            #get the the top ten 
+            #getTopTen uses set ListfromFile before 
+            top_ten = game.getTopTen()
+            #init the element to display (classement)
+            elem_list = game.initElem()
+            #get the max score 
+            max_score = game.getMaxTopTen()
+            NameScore2 = Police2.render(max_score,1,(255,50,50))
 
-            if os.path.exists("scores.txt"):
-                if os.path.getsize("scores.txt") == 0:
-                    file = open("scores.txt","w")
-                    file.write(game.player.name)
-                    file.write(' ')
-                    file.write(str(game.score))
-                    file.write(' ')
-                    file.write('\n')
-                    file.close()
-                    file = open("scores.txt",'r')
-                    line = file.readline()
-                    tabline = line.split(' ')
-                    file.close()
-                    name = tabline[0]
-                    highest_score = tabline[1]
-                    Score2 = Police2.render(name + "  " + str(int(highest_score)),1,(255,50,50))
-                else:
-                    file = open("scores.txt",'r')
-                    line = file.readline()
-                    tabline = line.split(' ')
-                    file.close()
-                    name = tabline[0]
-                    highest_score = tabline[1]
-                    NameScore2 = Police2.render(name + "  " + highest_score,1,(255,50,50))
-                    if game.score > int(highest_score):
-                        Score2 = Police2.render(name + "  " + str(game.score),1,(255,50,50))
-                        file = open("scores.txt","w")
-                        file.write(game.player.name)
-                        file.write(' ')
-                        file.write(str(game.score))
-                        file.write(' ')
-                        file.write('\n')
-                        file.close()                                
-            else:
-                file = open("scores.txt","w")
-                file.write(game.player.name)
-                file.write(' ')
-                file.write(str(game.score))
-                file.write(' ')
-                file.write('\n')
-                NameScore2 = Police2.render(game.player.name + "  " + str(game.score),1,(255,50,50))
-                file.close()           
             DISPLAYSURF.blit(Gameover, (190, 50))
-            DISPLAYSURF.blit(YourScore, (100,225))
-            DISPLAYSURF.blit(NameScore1, (125,350))
-            DISPLAYSURF.blit(HighScore,(625,225))
-            DISPLAYSURF.blit(NameScore2, (650,350))
-            DISPLAYSURF.blit(retry_button,(480,512))
+            DISPLAYSURF.blit(YourScore, (100,200))
+            DISPLAYSURF.blit(NameScore1, (125,250))
+            DISPLAYSURF.blit(HighScore,(625,200))
+            DISPLAYSURF.blit(NameScore2, (650,250))
+            DISPLAYSURF.blit(retry_button,(190,500))
+            DISPLAYSURF.blit(Ranking,(300,370))
+            posx = 300
+            posy = 450
+            i=0
+            while i<len(elem_list):
+                DISPLAYSURF.blit(elem_list[i],(posx,posy))
+                posy +=30
+                i+=1
+
+            pygame.display.update()  
+            for event in pygame.event.get():
+    
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if retry_button_rect.collidepoint(event.pos):
+                        game.is_playing = True
+                        game.game_over = False
         
         pygame.display.update()
-
+        FramePerSec.tick(FPS)
 
 
 
