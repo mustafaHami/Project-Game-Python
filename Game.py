@@ -24,11 +24,20 @@ class Game:
         # groupe de monstre
         self.all_monsters = pygame.sprite.Group()
         self.spawn_monster()
+        self.monster = Monster(self)
         #comet
         self.comet_event = CometFallEvent(self)
-
+        self.enVie = "first"
         self.gameover = False
-    
+        self.BLACK = (0, 0, 0)
+        self.WHITE = (255, 255, 255)
+        self.font_fin = pygame.font.SysFont("Verdana", 20)
+        self.screen = pygame.display.set_mode((1024, 768))
+        self.nbSom = 1
+        self.event = pygame.event.get()
+        self.arret = False
+        self.sleep = True
+
     def check_collision(self, sprite, group):
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
     
@@ -38,19 +47,58 @@ class Game:
             self.spawn_fruit()
 
     def game_over(self):
-        self.gameover = True
-        self.all_fruits = pygame.sprite.Group()
-        self.player.healthbar = False
-        self.player.mouvement = False
-        self.highScore(self.score) 
-        self.player.rect.x = 70
-        self.player.rect.y = 550
-        self.player.affichage = True
-        
+
+        if self.enVie == "first" and self.nbSom == 1:
+
+            self.player.rect.x = -10000
+            self.arret = True
+
+            if self.sleep == True:
+                pygame.mixer.music.load("son/sleep.mp3")
+                pygame.mixer.music.play(-1)
+                self.sleep = False
+
+            self.player.healthbar = False
+            for self.event in pygame.event.get():
+                if self.event.type == pygame.MOUSEBUTTONUP:
+                    self.arret = False
+                    pygame.mixer.music.load("son/wordl22.mp3")
+                    pygame.mixer.music.play(-1)
+                    self.enVie = "second"
+                    self.player.health = self.player.max_health
+                    self.nbSom += 1
+                    self.player.rect.x = 70
+                    self.player.healthbar = True
+        elif self.enVie == "second":
+            self.player.mouvement = False
+            self.monster.monstermouvement = False
+            self.gameover = True
+            self.player.gameover=True
+            self.all_fruits = pygame.sprite.Group()
+            self.player.healthbar = False
+            self.player.mouvement = False
+            self.highScore(self.score) 
+            self.player.rect.x = -10000
+            self.player.affichage = False
+            self.nbSom += 1
+        else:
+            self.player.mouvement = False
+            self.monster.monstermouvement = False
+            self.gameover = True
+            self.player.gameover=True
+            self.all_fruits = pygame.sprite.Group()
+            self.player.healthbar = False
+            self.player.mouvement = False
+            self.highScore(self.score)
+            self.player.rect.x = -10000
+            self.player.affichage = False
+            self.nbSom += 1
 
 
-    def update(self, screen):
-        Police = pygame.font.Font("Fonts/bold_game_font_7.ttf", 40)
+
+
+    def update(self):
+        Police = pygame.font.Font("Fonts/bold_game_font_7.ttf", 20)
         Rendu = Police.render(f"Score : {self.score}", 1, (255,255,255)) 
         screen.blit(Rendu, (10, 40))
 

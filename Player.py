@@ -11,10 +11,10 @@ class Player(animation.AnimateSprite):
     def __init__(self, game):
         super().__init__("ArmatureWalk")
         self.game = game
-        self.health = 10
+        self.health = 100
         self.max_health = 100
         self.healthbar = True
-        self.attack = 10
+        self.attack = 13
         self.velocity = 5
         self.all_projectile = pygame.sprite.Group()
         self.jump = 5
@@ -24,10 +24,11 @@ class Player(animation.AnimateSprite):
         self.game = game
         self.mouvement = True
         self.name = '' 
-
+        self.gameover = False
 
     def projectile(self):
-        self.all_projectile.add(Projectile(self))
+        if self.gameover == False:
+            self.all_projectile.add(Projectile(self))
 
     def damage(self, amount):
         if self.health > amount:
@@ -77,10 +78,13 @@ class Player(animation.AnimateSprite):
             if self.rect.right < 1024:
                 if pressed_keys[K_RIGHT] or pressed_keys[K_d]:
                     self.rect.move_ip(9, 0)
+        else:
+            self.rect.x = 10
 
     def jumpy(self,saut):
         if self.mouvement == True:   
             if saut != -20:
-                    self.rect.y -= saut
-                    self.stop_animation()
+                self.rect.y -= saut
+                self.stop_animation()
+
 

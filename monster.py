@@ -12,23 +12,25 @@ class Monster(animateMonster.AnimateMonsterSprite):
         self.attack = 0.2
         self.rect = self.image.get_rect()
         self.rect.x = 900 + random.randint(0, 200)
-        self.rect.y = 560
-        self.velocity = random.randint(2,5)
+        self.rect.y = 420
+        self.velocity = random.randint(3,5)
         self.nb = 10
+        self.monstermouvement = True
 
     def damage(self, amount):
         self.health -= amount
-
+        
         if self.health <= 0:
+
             self.nb -= 1
-            self.attack += 0.2
+            self.attack += 0.1
             # réapparaitre le meme monstre
-            self.tailleY += 20
+            self.tailleY += 10
             #self.image = pygame.transform.scale(self.image, (self.tailleX, self.tailleY))
             self.rect.x = 900 + random.randint(0, 200)
-            self.rect.y -= 21
-            self.max_health += 20
-            self.velocity = random.randint(2,4)
+            self.rect.y -= 10
+            self.max_health += 12
+            self.velocity = random.randint(3,6)
             self.health = self.max_health
             for i in range(0, 23):
                 self.images[i] = pygame.transform.scale(self.images[i], (self.tailleX, self.tailleY))
@@ -56,18 +58,11 @@ class Monster(animateMonster.AnimateMonsterSprite):
 
     def forward(self):
 
-        if not self.game.check_collision(self, self.game.all_players):
-            self.rect.x -= self.velocity
-        # monstre colision avec le joueur
+        if self.monstermouvement == True: 
+                
+            if not self.game.check_collision(self, self.game.all_players):
+                self.rect.x -= self.velocity
+            # monstre colision avec le joueur
+            else:
+                self.game.player.damage(self.attack)
 
-        else:
-            self.game.player.damage(self.attack)
-
-    def remisZero(self,animationMonster):
-        self.rect.y = 560
-        self.max_health = 110
-        self.health = 110
-        self.nb = 10
-        self.attack = 0.2
-        self.tailleY = 130
-        self.tailleX = 130
