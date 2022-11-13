@@ -14,7 +14,7 @@ class Player(animation.AnimateSprite):
         self.health = 100
         self.max_health = 100
         self.healthbar = True
-        self.attack = 13
+        self.attack = 50
         self.velocity = 5
         self.all_projectile = pygame.sprite.Group()
         self.jump = 5

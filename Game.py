@@ -100,7 +100,7 @@ class Game:
 
 
 
-    def update(self):
+    def update(self,screen):
         Police = pygame.font.Font("Fonts/bold_game_font_7.ttf", 20)
         Rendu = Police.render(f"Score : {self.score}", 1, (255,255,255)) 
         screen.blit(Rendu, (10, 40))

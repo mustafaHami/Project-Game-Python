@@ -7,7 +7,7 @@ class Comet(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load("images/asteroid.png")
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(5,550)
+        self.rect.x = random.randint(5,350)
         self.tailleY = random.randint(80,130)
         self.tailleX = self.tailleY
         self.image = pygame.transform.scale(self.image,(self.tailleX,self.tailleY))

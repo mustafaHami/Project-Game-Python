@@ -12,7 +12,7 @@ class Monster(animateMonster.AnimateMonsterSprite):
         self.attack = 0.2
         self.rect = self.image.get_rect()
         self.rect.x = 900 + random.randint(0, 200)
-        self.rect.y = 420
+        self.rect.y = 620
         self.velocity = random.randint(3,5)
         self.nb = 10
         self.monstermouvement = True

@@ -250,6 +250,7 @@ music = pygame.mixer.music.load("son/Wordl2.mp3")
 # Game Loop
 pygame.mixer.music.load("son/Wordl2.mp3")
 pygame.mixer.music.play(-1)
+#game.start()
 if game.is_playing == True:
 # Game Loop
 
@@ -257,7 +258,7 @@ if game.is_playing == True:
         if game.enVie == 'first':
             game.player.update_animation()
             game.player.start_animation()
-            P1.damage(2)
+            P1.damage(0.1)
                 # Every game events
             for event in pygame.event.get():
                 if event.type == INC_SPEED:
@@ -296,10 +297,10 @@ if game.is_playing == True:
             game.player.update_health_bar(DISPLAYSURF)
 
             #/////Dans la versione précedent il n' avais pas ces 4 lignes
-            for fruits in game.all_fruits:
+           ''' for fruits in game.all_fruits:
                 fruits.forward()
                 game.update(DISPLAYSURF)
-                pygame.display.update()
+                pygame.display.update()'''
 
                 # To be run if collision occurs between Player and Enemy
             if pygame.sprite.spritecollideany(P1, enemies):
@@ -311,6 +312,7 @@ if game.is_playing == True:
                 pygame.display.update()
             #dans une autre version il n'y a pas le if
             # To be run if collision occurs between Player and Enemy
+
             if game.arret == True:
                 DISPLAYSURF.fill((0, 0, 0))
                 DISPLAYSURF.blit(pygame.font.Font("Fonts/Eczar-ExtraBold.ttf", 25).render(
@@ -329,7 +331,7 @@ if game.is_playing == True:
 
                 pygame.display.update()
           
-        elif game.enVie == "second":
+        elif game.enVie == "second"
             back_ground2.render()
             game.player.update_animation()
             game.player.start_animation()
@@ -413,7 +415,7 @@ if game.is_playing == True:
                         entity.moveforSecondWorld()
                     game.player.update_health_bar(DISPLAYSURF)
  
-        elif game.gameover == True:
+        if game.gameover == True:
             Police1 = pygame.font.Font("Fonts/Eczar-ExtraBold.ttf", 110)
             Police2 = pygame.font.Font("Fonts/Eczar-SemiBold.ttf", 50)
             Gameover = Police1.render("GAME OVER ", 0, (0,0,0))
